@@ -9,6 +9,6 @@ __pycache__
 
 venv/
 docs/build/
-*.suo
-*.json
-*.sqlite
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/itucsdb18/v15/.suo
