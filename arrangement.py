@@ -5,14 +5,7 @@ from datetime import date
 url = "postgres://iedbwmwpyqzhkn:03e3f46bbea9aa0ece8e4e0f02873d2406203138589f1e51f5a42df6458e0cf5@ec2-107-22-234-103.compute-1.amazonaws.com:5432/d8g4sg1e98t5p7"
 
 class Database:
-    def __init__(self, dbname="d8g4sg1e98t5p7", user="iedbwmwpyqzhkn",	 
-                    password="03e3f46bbea9aa0ece8e4e0f02873d2406203138589f1e51f5a42df6458e0cf5",	
-                    host="ec2-107-22-234-103.compute-1.amazonaws.com"):
-        self.database=dbname 
-        self.user=user 
-        self.password=password
-        self.host=host
-
+    def __init__(self):
         self.UserId = 0
         self.book_name = None
         self.book_detail = None
