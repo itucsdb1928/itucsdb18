@@ -1,12 +1,12 @@
 import psycopg2
 import psycopg2.extras
 from datetime import date
-import os
-import sys
 
 class Database:
-    def __init__(self, url):
-        self.con = psycopg2.connect(url)
+    def __init__(self, dbname="d8g4sg1e98t5p7", user="iedbwmwpyqzhkn",	 
+                    password="03e3f46bbea9aa0ece8e4e0f02873d2406203138589f1e51f5a42df6458e0cf5",	
+                    host="ec2-107-22-234-103.compute-1.amazonaws.com"):
+        self.con = psycopg2.connect(database=dbname, user=user, password=password, host=host)
         self.cur = self.con.cursor()
         self.UserId = 0
         self.book_name = None
