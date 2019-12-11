@@ -11,9 +11,10 @@ from datetime import date
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-db=Database()
+#db=Database()
 
 @app.route('/')
+'''
 @app.route('/Home',methods=['GET','POST'])
 def homepage():
 
@@ -32,7 +33,7 @@ def homepage():
     else:
         My_list=db.get_home_page()
     return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list)
-
+'''
 
 @app.route('/SignIn',methods=['GET','POST'])
 def sign_in_page():
@@ -45,8 +46,9 @@ def sign_in_page():
             flash('Başarılı bir şekilde giriş yaptınız!', 'success')
             return redirect(url_for('profile_page'))
     
-    return render_template('login.html',Status =db.UserId,title = "SıgnIn Page", form=form)
-
+    #return render_template('login.html',Status =db.UserId,title = "SıgnIn Page", form=form)
+    return render_template('login.html',Status =1,title = "SıgnIn Page", form=form)
+'''
 @app.route('/SignUp',methods=['GET','POST'])
 def sign_up_page():
     form=RegistrationForm()
@@ -125,7 +127,7 @@ def detail_page():
 
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
-
+'''
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
 
