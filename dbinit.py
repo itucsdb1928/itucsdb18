@@ -144,7 +144,7 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Gemb
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Doamr', 732, 7, 6, 'Morbi non quam nec dui luctus rutrum.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Biodex', 845, 5, 4, 'Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Wrapsafe', 691, 4, 3, 'Fusce consequat.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES (Harmit', 641, 3, 2, 'Morbi non quam nec dui luctus rutrum.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Harmit', 641, 3, 2, 'Morbi non quam nec dui luctus rutrum.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Tempsoft', 655, 2, 1, 'Donec quis orci eget orci vehicula condimentum.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Viva', 382,1, 19, 'Nullam molestie nibh in lectus.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Bryom', 177, 13, 18, 'Nulla tempus.');
