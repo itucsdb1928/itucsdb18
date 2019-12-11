@@ -1,0 +1,163 @@
+{% extends 'layoutDetail.html' %}
+
+{% block content %}
+
+<h1>{{name}}</h1>
+<table class="table is-hoverable">
+    <tr>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>Page Number</th>
+    </tr>
+
+    <tr>
+        <td>{{details[0]}} {{details[1]}}</td>
+        <td>{{details[2]}}</td>
+        <td>{{details[3]}}</td>
+    </tr>
+</table>
+
+<h2>About book: </h2>
+{% if user == 1 %}
+<form style="text-align: center;" action="/Detail" method="POST">
+    <label class="radio-inline">
+        <textarea name="comment" rows="5" cols="150" maxlength="1000">{{details[4]}}</textarea>
+    </label>
+    <label class="radio-inline">
+        <button class="button is-link" action='submit' name="btn" value="updateBtn">Update</button>
+</label>
+</form>
+{% else %}
+<p> {{details[4]}}</p>
+{% endif %}
+
+
+<div class="userRate">
+    <span class="heading">User Rating</span>
+    {% for i in range(0,5) %}
+    {% if i< rateInfo[1] %}
+    <span class="fa fa-star checked"></span>
+    {% else %}
+    <span class="fa fa-star"></span>
+    {% endif %}
+    {% endfor %}
+    <p>{{rateInfo[0]}} average based on {{rateInfo[2]}} rate.</p>
+    <hr style="border:3px solid #f1f1f1">
+
+    <div class="row">
+        <div class="side">
+            <div>5 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="bar-5" style="width: {{rateInfo[3][5][1]}}%;"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>{{rateInfo[3][5][0]}}</div>
+        </div>
+        <div class="side">
+            <div>4 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="bar-4" style="width: {{rateInfo[3][4][1]}}%;"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>{{rateInfo[3][4][0]}}</div>
+        </div>
+        <div class="side">
+            <div>3 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="bar-3" style="width: {{rateInfo[3][3][1]}}%;"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>{{rateInfo[3][3][0]}}</div>
+        </div>
+        <div class="side">
+            <div>2 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="bar-2" style="width: {{rateInfo[3][2][1]}}%;"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>{{rateInfo[3][2][0]}}</div>
+        </div>
+        <div class="side">
+            <div>1 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="bar-1" style="width: {{rateInfo[3][1][1]}}%;"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>{{rateInfo[3][1][0]}}</div>
+        </div>
+    </div>
+</div>
+
+<form style="text-align: center;" action="/Detail" method="POST">
+    <label class="radio-inline">
+        <h3>Rate this book </h3>
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" value="1" checked>1
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" value="2">2
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" value="3">3
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" value="4">4
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" value="5">5
+    </label>
+    <label class="radio-inline">
+        <h3>Comment</h3>
+        <textarea name="comment" rows="3" cols="30" maxlength="500">Comment Box.</textarea>
+    </label>
+    {% if Status > 0 %}
+    <label class="radio-inline" name="btn" value="ratingBtn">
+        <button class="button is-link" action='submit' name="btn" value="ratingBtn">Share</button>
+    </label>
+    {% endif %}
+</form>
+
+<br /><br />
+<div style="text-align: center;" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="page-header">
+                <h1><small class="pull-right">{{rateInfo[2]}} comments</small> Comments </h1>
+            </div>
+            <div class="comments-list">
+
+                {% for i in rateInfo[4] %}
+                <div class="media">
+                    <p class="pull-right"><small>{{(today - i[3]).days}} days ago</small></p>
+                    <div class="media-body">
+                        <h4 class="media-heading user_name">{{i[2]}}</h4>
+                        {{i[1]}}
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br /><br />
+
+
+{% endblock content %}
+

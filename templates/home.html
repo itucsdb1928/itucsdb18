@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+ {% block content %}
+
+
+
+<h1>Home Page</h1>
+
+<form action="/Home" method="POST">
+    <div class="columns">
+        <div class="column is-one-fifth">
+            <input class="input is-info" type="text" name="search_book" id="search_book"  placeholder="Enter Book Name..">
+        
+            <button class="button is-link" action='submit' name="btn" value="search">Search</button>
+    </div>
+</form>
+<table class="table is-hoverable">
+    <tr>
+        <th>Book Name falan</th>
+        <th>Contentr</th>
+        <th>Detail</th>
+
+    </tr>
+
+    
+      {% for i in titles %}
+    <tr>
+        <form method="POST" name="detail{{i[0]}}" action="/Home">
+            <td name="Book_name">{{i[0]}}</td>
+
+            <input type="hidden" name="Book_name" value="{{i[0]}}">
+            <td>{{i[1]}}</td>
+            <td>
+                <button class="button is-danger" action="submit" id="detailButton" name="btn" value="detail">See Detail</button>
+            </td>
+        </form>
+    </tr>
+    {% endfor %}
+    
+
+    
+</table>
+{% endblock content %}
+
