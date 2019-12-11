@@ -17,7 +17,7 @@ class Database:
            query = "SELECT Books.Title,Books.content FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY bookid"
            cursor.execute(query)
            home = cursor.fetchall()
-           cursor.close()
+           
        return home
 
     # def update_rewiev(self,Bookid):
@@ -31,7 +31,7 @@ class Database:
            query = "SELECT Author.name,Author.surname,Publisher.name,Books.PageNum,Books.content,Books.BookID FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID AND Books.Title='%s'"%(book_name)
            cursor.execute(query)
            detail = cursor.fetchone()
-           cursor.close()
+        
        return detail
 
     def Search(self,name):
@@ -39,7 +39,7 @@ class Database:
             query = "SELECT Books.Title,Books.content FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID AND Books.Title LIKE '%%%s%%' "%(name)
             cursor.execute(query)
             search = cursor.fetchall()
-            cursor.close()
+          
        return search
 
     def show_profile(self,UserId):
@@ -47,14 +47,14 @@ class Database:
             query = "SELECT * FROM Users WHERE UserID={}".format(UserId)
             cursor.execute(query)
             profile = cursor.fetchall()
-            cursor.close()
+           
         return profile
 
     def edit_profile(self,name,surname, age, gender, email, Userid):
         with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
             query = "UPDATE Users SET name='{}',surname='{}',age={},gender='{}',email='{}'WHERE UserID={};".format(name, surname, age, gender, email, Userid)
             cursor.execute(query)
-            cursor.close()
+            
 
     # def delete_profile(self, Userid):
     #     with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
@@ -70,7 +70,7 @@ class Database:
            query = "SELECT UserID ,email,password FROM Users WHERE email='%s' and password = '%s';" %(email,password)
            cursor.execute(query)
            info = cursor.fetchone()
-           cursor.close()
+          
 
        if info is not None:
            UserID = info[0]
@@ -83,19 +83,19 @@ class Database:
             query = "select email from users where email = '%s';" %(form.email.data)
             cursor.execute(query)
             info = cursor.fetchone()
-            cursor.close()
+          
 
         if info is None:
             with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
                 query = "INSERT INTO Users (name,surname,gender,age,email,password,isAdmin) VALUES ('%s','%s','%s','%s','%s', '%s',0);" %(form.name.data,form.surname.data,form.gender.data,form.age.data,form.email.data,form.password.data)
                 cursor.execute(query)
-                cursor.close()
+               
 
             with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
                 query = "SELECT UserID  FROM Users WHERE email='%s';" %(form.email.data)
                 cursor.execute(query)
                 info = cursor.fetchone()
-                cursor.close()
+             
                 return info[0]
               
     
