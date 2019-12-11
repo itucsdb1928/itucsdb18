@@ -27,6 +27,7 @@ def homepage():
             db.book_name=request.form["Book_name"]
             print(db.book_name)
             db.book_detail=db.get_detail_page(db.book_name)
+            print(db.book_detail)
             #db.update_rewiev(db.book_name)
             return redirect(url_for('detail_page'))
     else:
@@ -119,7 +120,6 @@ def detail_page():
                 return redirect(url_for('detail_page'))
         elif request.form["btn"] == "updateBtn" :
             newContent = request.form['comment']
-            db.book_detail[4] = newContent 
             db.updateBookContent(bookId,newContent)
             return redirect(url_for('homepage'))
 
