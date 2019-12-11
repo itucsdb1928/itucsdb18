@@ -5,10 +5,9 @@ import os
 import sys
 
 class Database:
-    def __init__(self, dbname="d9qfricrmj8vii", user="tnivydbyztjmgh",	 
-                    password="b791cb0275732cebe4b23d3ce0d53d0d4a308966829b297983dafc39553f170a",	
-                    host="ec2-174-129-41-127.compute-1.amazonaws.com"):
-        self.con = psycopg2.connect(database=dbname, user=user, password=password, host=host)
+    def __init__(self, url):
+        self.con = psycopg2.connect(url)
+        self.cur = self.con.cursor()
         self.cur = self.con.cursor()
         self.UserId = 0
         self.book_name = None
