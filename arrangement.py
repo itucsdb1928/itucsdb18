@@ -61,7 +61,10 @@ class Database:
            cursor = connection.cursor()
            query = "UPDATE Users SET name='{}',surname='{}',age={},gender='{}',email='{}'WHERE UserID={};".format(name, surname, age, gender, email, Userid)
            cursor.execute(query)
-           cursor.close() 
+           cursor.close()
+
+    def update_review(self,book_name):
+        pass
 
     # def delete_profile(self, Userid):
     #     with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:

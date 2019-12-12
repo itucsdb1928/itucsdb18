@@ -14,8 +14,8 @@ INIT_STATEMENTS = [
                       numberOfbooks INTEGER,
                       country VARCHAR(40)
                      );
-    CREATE TABLE IF NOT EXISTS BookRewiev( 
-                      BookRewievID SERIAL PRIMARY KEY ,
+    CREATE TABLE IF NOT EXISTS BookReview( 
+                      BookReviewID SERIAL PRIMARY KEY ,
                       review INTEGER DEFAULT 0,
                       UserRating INTEGER,
                       UserComment VARCHAR(500),
@@ -36,7 +36,7 @@ INIT_STATEMENTS = [
                       Title VARCHAR(20),
                       PostDate  DATE,
                       PageNum INTEGER,
-                      BookRewiev INTEGER REFERENCES BookRewiev (BookRewievID) , 
+                      BookReview INTEGER REFERENCES BookReview (BookReviewID) , 
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
                       AuthorID INTEGER REFERENCES Author (AuthorID) ,
                       Content VARCHAR(500)
@@ -64,8 +64,8 @@ INIT_STATEMENTS = [
                       isAdmin INTEGER DEFAULT 0
                      );
 
-    ALTER TABLE BookRewiev ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
-    ALTER TABLE BookRewiev ADD COLUMN BookID INTEGER REFERENCES Books (BookID);       
+    ALTER TABLE BookReview ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
+    ALTER TABLE BookReview ADD COLUMN BookID INTEGER REFERENCES Books (BookID);       
     
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('admin','admin','admin@gmail.com', 'admin',1);
@@ -167,10 +167,10 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Prod
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Ronstring', 251, 6, 17, 'Duis at velit congue elementum.');
 
 
-INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 1 ,2,'kotu','1/21/2019');
-INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 1 ,3,'idare eder','9/19/2019');
-INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 2 ,4,'idare eder','11/15/2019');
-INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 2 ,5,'cok ii','11/30/2019');
+INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 1 ,2,'kotu','1/21/2019');
+INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 1 ,3,'idare eder','9/19/2019');
+INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 2 ,4,'idare eder','11/15/2019');
+INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 2 ,5,'cok ii','11/30/2019');
 
 
     """
