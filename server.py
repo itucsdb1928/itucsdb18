@@ -83,7 +83,7 @@ def edit_profile_page():
             gender = request.form["gender"]
             age = request.form["age"]
             email = request.form["email"]
-            db.edit_profile(name,surname,gender,age,email,db.UserId)
+            db.edit_profile(name,surname,age,gender,email,db.UserId)
             print(name,surname,gender,age,email)
             return redirect(url_for('profile_page'))
 

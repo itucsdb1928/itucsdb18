@@ -6,7 +6,7 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
     """
-    CREATE TABLE Author( 
+    CREATE TABLE IF NOT EXISTS Author( 
                       AuthorID SERIAL PRIMARY KEY , 
                       name VARCHAR(30), 
                       surname VARCHAR(30),
@@ -14,7 +14,7 @@ INIT_STATEMENTS = [
                       numberOfbooks INTEGER,
                       country VARCHAR(40)
                      );
-    CREATE TABLE BookRewiev( 
+    CREATE TABLE IF NOT EXISTS BookRewiev( 
                       BookRewievID SERIAL PRIMARY KEY ,
                       review INTEGER DEFAULT 0,
                       UserRating INTEGER,
@@ -22,7 +22,7 @@ INIT_STATEMENTS = [
                       CommentDate DATE 
                      );
                      
-    CREATE TABLE Publisher( 
+    CREATE TABLE IF NOT EXISTS Publisher( 
                       PublisherID SERIAL PRIMARY KEY , 
                       name VARCHAR(40), 
                       adress VARCHAR(50),
@@ -31,7 +31,7 @@ INIT_STATEMENTS = [
                       companyName VARCHAR(50)
                      );
                      
-    CREATE TABLE Books( 
+    CREATE TABLE IF NOT EXISTS Books( 
                       BookID SERIAL PRIMARY KEY , 
                       Title VARCHAR(20),
                       PostDate  DATE,
@@ -43,7 +43,7 @@ INIT_STATEMENTS = [
                      );  
                     
                                           
-    CREATE TABLE UserContent( 
+    CREATE TABLE IF NOT EXISTS UserContent( 
                       UserContentID SERIAL PRIMARY KEY , 
                       VoteNum INTEGER,        
                       CommentsNum INTEGER,
@@ -52,7 +52,7 @@ INIT_STATEMENTS = [
                       FavPublisher VARCHAR(20)
                      );
                      
-    CREATE TABLE Users( 
+    CREATE TABLE IF NOT EXISTS Users( 
                       UserID SERIAL PRIMARY KEY, 
                       name VARCHAR (50)  NOT NULL, 
                       surname VARCHAR (50)  NOT NULL, 
@@ -61,7 +61,7 @@ INIT_STATEMENTS = [
                       content INTEGER REFERENCES UserContent (UserContentID),
                       email VARCHAR (50) UNIQUE NOT NULL,
                       password VARCHAR (20)  NOT NULL,
-                      isAdmin INTEGER
+                      isAdmin INTEGER DEFAULT 0
                      );
 
     ALTER TABLE BookRewiev ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
@@ -115,7 +115,7 @@ INSERT INTO Author (name, surname, birthDate, numberOfbooks, country) VALUES ('T
 INSERT INTO Author (name, surname, birthDate, numberOfbooks, country) VALUES ('Piotr', 'Cheetam', '10/5/1973', 22, 'Norway');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Y-find', 206, 13, 19, 'In hac habitasse platea dictumst.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Job', 631, 12, 18, 'Suspendisse potenti.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Voltsillam', 825, 11, 17, 'In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Voltsillam', 825, 11, 17, 'In tempor, turpis nec euismod scelerisque, vitae mattis nibh ligula nec sem.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Stronghold', 171, 10, 16, 'Donec posuere metus vitae ipsum.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Alrhagap', 214, 9, 15, 'Suspendisse potenti.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Qwoesam', 553, 8, 14, 'Nam dui.');
@@ -131,12 +131,12 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Tran
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Karqwe', 459, 10, 3, 'Nulla mollis molestie lorem.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Subin', 225, 9, 2, 'Maecenas ut massa quis augue luctus tincidunt.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Rank', 589, 8, 1, 'Fusce consequat.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Bitwolf', 575, 7, 19, 'Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Bitwolf', 575, 7, 19, 'Fusce congue, diam id ornare imperdiet ut volutpat sapien arcu sed augue.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Lotstring', 525, 6, 18, 'Quisque id justo sit amet sapien dignissim vestibulum.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Domainer', 801, 5, 17, 'Phasellus in felis.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Stringtough', 331, 4, 16, 'Suspendisse potenti.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Quo Lux', 780, 2, 14, 'In congue.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Konklux', 227, 1, 13, 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Konklux', 227, 1, 13, 'Vestibulum ante ipsum primis in faucibus orci Curae; Nulla vel est.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Span', 219, 13, 12, 'Aliquam non mauris.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Cookley', 833, 12, 11, 'Aliquam erat volutpat.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Betaqr', 223, 10, 9, 'Proin eu mi.');
@@ -164,7 +164,7 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Byte
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Fixflex', 305, 9, 1, 'Mauris lacinia sapien quis libero.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Zaam-Dox', 641, 8, 19, 'Integer non velit.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Prodder', 399, 7, 18, 'Nulla suscipit ligula in lacus.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Ronstring', 251, 6, 17, 'Duis at velit eu est congue elementum.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Ronstring', 251, 6, 17, 'Duis at velit congue elementum.');
 
 
 INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 1 ,2,'kotu','1/21/2019');
