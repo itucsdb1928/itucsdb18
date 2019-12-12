@@ -63,8 +63,23 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
-    def update_review(self,book_name):
-        pass
+    def get_review(self,book_name):
+        with dbapi2.connect(url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT Books.BookID From Books Where Books.Title='{}';".format(book_name)
+            cursor.execute(query)
+            bookreviewid=cursor.fetchone()
+            cursor.close()
+            return bookreviewid[0]
+
+    def update_review(self,bookreviewid):
+        with dbapi2.connect(url) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE BookReview SET review=review+1 WHERE BookReviewID={};".format(bookreviewid)
+            cursor.execute(query)
+            cursor.close()
+
+
 
     # def delete_profile(self, Userid):
     #     with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
@@ -119,7 +134,7 @@ class Database:
         info = None
         with dbapi2.connect(url) as connection:
            cursor = connection.cursor()
-           query = "INSERT INTO bookrewiev (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
+           query = "INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
            cursor.execute(query)
            cursor.close()
            return True
@@ -130,7 +145,7 @@ class Database:
         info = None
         with dbapi2.connect(url) as connection:
            cursor = connection.cursor()
-           query = "SELECT userid FROM bookrewiev where userid = '%d' and bookid = %d" %(userId,bookId)
+           query = "SELECT userid FROM bookreview where userid = '%d' and bookid = %d" %(userId,bookId)
            cursor.execute(query)
            info = cursor.fetchone()
            cursor.close()
@@ -147,7 +162,7 @@ class Database:
         rates = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]}
         with dbapi2.connect(url) as connection:
            cursor = connection.cursor()
-           query = "SELECT bookrewiev.userrating,bookrewiev.usercomment,users.name,bookrewiev.commentdate from bookrewiev,users WHERE bookrewiev.userid = users.userid and  bookid =  %d" %(bookId)
+           query = "SELECT bookreview.userrating,bookreview.usercomment,users.name,bookreview.commentdate from bookreview,users WHERE bookreview.userid = users.userid and  bookid =  %d" %(bookId)
            cursor.execute(query)
            info = cursor.fetchall()
            cursor.close()

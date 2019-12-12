@@ -28,7 +28,9 @@ def homepage():
             print(db.book_name)
             db.book_detail=db.get_detail_page(db.book_name)
             print(db.book_detail)
-            #db.update_rewiev(db.book_name)
+            bookreviewid=db.get_review(db.book_name)
+            db.update_review(bookreviewid)
+            print("****",bookreviewid)
             return redirect(url_for('detail_page'))
     else:
         My_list=db.get_home_page()
