@@ -39,6 +39,16 @@ class Database:
         
        return detail
 
+    def delete_book(self, bookid):
+        with dbapi2.connect(url) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM BookReview WHERE BookID={};".format(bookid)
+            cursor.execute(query)
+            query = "DELETE FROM Books WHERE BookID={};".format(bookid)
+            cursor.execute(query)
+            cursor.close()
+
+
     def Search(self,name):
        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
@@ -66,6 +76,15 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
+    def delete_profile(self, Userid):
+        with dbapi2.connect(url) as connection:
+           cursor = connection.cursor()
+           query = "DELETE FROM BookReview WHERE UserID={};".format(Userid)
+           cursor.execute(query)
+           query = "DELETE FROM Users WHERE UserID={};".format(Userid)
+           cursor.execute(query)
+           cursor.close()
+
     def get_review(self,book_name):
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
@@ -83,11 +102,6 @@ class Database:
             cursor.close()
 
 
-
-    # def delete_profile(self, Userid):
-    #     with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-    #         query = "DELETE FROM Users WHERE UserID={};".format(Userid)
-    #         cursor.execute(query)
 
 
 

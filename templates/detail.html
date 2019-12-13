@@ -3,6 +3,20 @@
 {% block content %}
 
 <h1>{{name}}</h1>
+
+{% if user == 1 %}
+
+<form action="/Detail" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="delete_book" >
+
+                <button class="button is-danger" action="submit" id="delete_book" name="btn" value="delete_book">Delete Book</button>
+
+          </div>
+    </form>
+{% endif %}
 <table class="table is-hoverable">
     <tr>
         <th>Author</th>

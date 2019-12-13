@@ -76,6 +76,12 @@ def edit_profile_page():
 
         if request.form["btn"] == "cancel" :
             return redirect(url_for('profile_page'))
+        elif request.form["btn"] == "delete_profile":
+            db.delete_profile(db.UserId)
+            db.UserId = 0
+            return redirect(url_for('sign_up_page'))
+            pass
+
         elif request.form["btn"] == "save_changes" :
             name = request.form["name"]
             surname = request.form["surname"]
@@ -117,7 +123,9 @@ def detail_page():
             newContent = request.form['comment']
             db.updateBookContent(bookId,newContent)
             return redirect(url_for('homepage'))
-
+        elif request.form["btn"] == "delete_book":
+            db.delete_book(bookId)
+            return redirect(url_for('homepage'))
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
 
