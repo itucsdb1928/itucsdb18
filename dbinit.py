@@ -60,7 +60,7 @@ INIT_STATEMENTS = [
                       age VARCHAR (3) NULL,
                       content INTEGER REFERENCES UserContent (UserContentID),
                       email VARCHAR (50) UNIQUE NOT NULL,
-                      password VARCHAR (20)  NOT NULL,
+                      password VARCHAR (75)  NOT NULL,
                       isAdmin INTEGER DEFAULT 0
                      );
 
