@@ -4,7 +4,19 @@
 
 <h1> {{name}} {{surname}}</h1>
 
+{% if user == 1 %}
 
+<form action="/Author_Profile" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="update_author" >
+
+                <button class="button is-danger" action="submit" id="update_author" name="btn" value="update_author">Edit Author</button>
+
+          </div>
+    </form>
+{% endif %}
 <table class="table is-hoverable">
 
 
@@ -26,7 +38,7 @@
     </tr>
      <tr>
       <th>Country</th>
-       <td>{{author[3]}}</td>
+       <td>{{author[4]}}</td>
     </tr>
 
 

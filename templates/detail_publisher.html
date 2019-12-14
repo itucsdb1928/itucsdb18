@@ -2,9 +2,22 @@
 
 {% block content %}
 
-<h1>{{name}}</h1>
+<h1>{{name}}  {{user}} </h1>
 
 
+{% if user == 1 %}
+
+<form action="/Publisher_Profile" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="update_publisher" >
+
+                <button class="button is-danger" action="submit" id="update_publisher" name="btn" value="update_publisher">Edit Publisher</button>
+
+          </div>
+    </form>
+{% endif %}
 <table class="table is-hoverable">
 
 

@@ -123,7 +123,7 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Rons
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Bitchip', 841, 4, 10, 'Proin interdum mauris non ligula pellentesque ultrices.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Otcom', 731, 3, 9, 'Aenean sit amet justo.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Daltfresh', 716, 2, 8, 'Curabitur convallis.');
-INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Sonair', 637, 1, 7, 'Etiam faucibus cursus urna.');
+INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Kuraqe', 637, 1, 7, 'Etiam faucibus cursus urna.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Kanlam', 814, 13, 6, 'Etiam faucibus cursus urna.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Transcof', 240,12, 5, 'Sed ante.');
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Karqwe', 459, 10, 3, 'Nulla mollis molestie lorem.');

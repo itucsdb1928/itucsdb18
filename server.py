@@ -76,6 +76,7 @@ def profile_page():
 @app.route('/EditProfile',methods=['GET','POST'])
 def edit_profile_page():
     profile = db.show_profile(db.UserId)
+    print(profile)
     if request.method == "POST":
 
         if request.form["btn"] == "cancel" :
@@ -101,15 +102,58 @@ def edit_profile_page():
     return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
 
 
+@app.route('/EditAuthor',methods=['GET','POST'])
+def edit_author_page():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('author_detail_page'))
+        elif request.form["btn"] == "save_changes":
+            name = request.form["name"]
+            surname = request.form["surname"]
+            birthdate=request.form["birthdate"]
+            numberofbooks=request.form["numberofbooks"]
+            country=request.form["country"]
+            authorid=db.author_details[5]
+            db.edit_author(name,surname, birthdate, numberofbooks, country,authorid)
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_author.html', Status=db.UserId, title="Edit Author Page",author=db.author_details,user=db.UserId)
+
+@app.route('/EditPublisher',methods=['GET','POST'])
+def edit_publisher_page():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('publisher_detail_page'))
+        elif request.form["btn"] == "save_changes":
+            name = request.form["name"]
+            adress = request.form["adress"]
+            numberOfbooks=request.form["numberofbooks"]
+            establishmentdate=request.form["establismentdate"]
+            companyName=request.form["companyname"]
+            publisherid=db.publisher_details[4]
+            db.edit_publisher(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_publisher.html', Status=db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
+
 @app.route('/Author_Profile',methods=['GET','POST'])
 def author_detail_page():
+
     nameAuthor=db.book_detail[0]
     surnameAuthor=db.book_detail[1]
-    return render_template('detail_author.html', author=db.author_details, name=nameAuthor,surname=surnameAuthor)
+    if request.method == "POST":
+        if request.form["btn"] == "update_author":
+            return redirect(url_for("edit_author_page"))
+
+
+    return render_template('detail_author.html', title="Author Detail Page",author=db.author_details, name=nameAuthor,surname=surnameAuthor,user=db.UserId)
 
 @app.route('/Publisher_Profile',methods=['GET','POST'])
 def publisher_detail_page():
-    return render_template('detail_publisher.html', publisher=db.publisher_details, name=db.book_detail[2])
+    if request.method == "POST":
+        if request.form["btn"] == "update_publisher":
+            return redirect(url_for("edit_publisher_page"))
+    return render_template('detail_publisher.html', title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
 
 @app.route('/Detail',methods=['GET','POST'])
 def detail_page():

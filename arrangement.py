@@ -47,7 +47,7 @@ class Database:
 
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
-            query = "SELECT DISTINCT Publisher.adress,Publisher.numberOfbooks,Publisher.establishmentDate,Publisher.companyName FROM Publisher,Books WHERE Publisher.publisherid=Books.publisherid AND Publisher.name='%s' ;" % (publisherName)
+            query = "SELECT DISTINCT Publisher.adress,Publisher.numberOfbooks,Publisher.establishmentDate,Publisher.companyName,Publisher.publisherid FROM Publisher,Books WHERE Publisher.publisherid=Books.publisherid AND Publisher.name='%s' ;" % (publisherName)
             cursor.execute(query)
             publisherDetails=cursor.fetchone()
             cursor.close()
@@ -57,12 +57,24 @@ class Database:
 
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
-            query = "SELECT DISTINCT Author.name,Author.surname,Author.Birthdate,Author.Numberofbooks,Author.Country FROM Author,Books WHERE Author.Authorid=Books.authorid AND Author.name='%s' AND Author.Surname='%s';" % (authorName,authorSurname)
+            query = "SELECT DISTINCT Author.name,Author.surname,Author.Birthdate,Author.Numberofbooks,Author.Country,Author.Authorid FROM Author,Books WHERE Author.Authorid=Books.authorid AND Author.name='%s' AND Author.Surname='%s';" % (authorName,authorSurname)
             cursor.execute(query)
             authorDetails=cursor.fetchone()
             cursor.close()
             return authorDetails
 
+    def edit_author(self,name,surname, birthdate, numberofbooks, country,authorid):
+         with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "UPDATE Author SET name='{}',surname='{}',birthdate='{}',numberofbooks={},country='{}' WHERE authorid={};".format(name,surname, birthdate, numberofbooks, country,authorid)
+           cursor.execute(query)
+           cursor.close()
+    def edit_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName,publisherid):
+         with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "UPDATE Publisher SET name='{}',adress='{}',numberofbooks={},establishmentdate='{}',companyname='{}' WHERE PublisherID={};".format(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+           cursor.execute(query)
+           cursor.close()
 
     def delete_book(self, bookid):
         with dbapi2.connect(self.url) as connection:
