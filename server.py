@@ -18,7 +18,6 @@ crp = Crypto()
 @app.route('/')
 @app.route('/Home',methods=['GET','POST'])
 def homepage():
-
     if request.method == "POST":
         if request.form["btn"] == "search":
             db.book_name=request.form["search_book"]
@@ -26,8 +25,8 @@ def homepage():
         elif request.form["btn"] == "detail":
             db.book_name=request.form["Book_name"]
             db.book_detail=db.get_detail_page(db.book_name)
-            bookreviewid=db.get_review(db.book_name)
-            db.update_review(bookreviewid)
+            #bookreviewid=db.get_review(db.book_name)
+            #db.update_review(bookreviewid)
 
             return redirect(url_for('detail_page'))
     else:
@@ -104,7 +103,7 @@ def edit_profile_page():
 def detail_page():
     bookId = db.book_detail[5]
     today = date.today()
-    bookRateInfo = db.getRewiev(bookId)
+    bookRateInfo = db.getReview(bookId)
     detailStat = db.UserId
     commentCheck = db.checkUser(db.UserId,bookId)
 

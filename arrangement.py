@@ -16,7 +16,7 @@ class Database:
     def get_home_page(self):
        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT Books.Title,Books.content FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY bookid"
+           query = "SELECT Books.Title,Books.content,Books.BookReview FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY bookid"
            cursor.execute(query)
            home = cursor.fetchall()
            cursor.close()
@@ -31,12 +31,18 @@ class Database:
 
     def get_detail_page(self,book_name):
        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Books SET BookReview = BookReview+1 WHERE Books.Title='%s'"%(book_name)
+            cursor.execute(query)
+            cursor.close()
+
+       with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "SELECT Author.name,Author.surname,Publisher.name,Books.PageNum,Books.content,Books.BookID FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID AND Books.Title='%s'"%(book_name)
            cursor.execute(query)
            detail = cursor.fetchone()
            cursor.close()
-        
+
        return detail
 
     def delete_book(self, bookid):
@@ -85,25 +91,21 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
-    def get_review(self,book_name):
-        with dbapi2.connect(self.url) as connection:
-            cursor = connection.cursor()
-            query = "SELECT Books.BookID From Books Where Books.Title='{}';".format(book_name)
-            cursor.execute(query)
-            BookCommentid=cursor.fetchone()
-            cursor.close()
-            return BookCommentid[0]
+    #def getNumberOfbookReview(self,book_name):
+    #    with dbapi2.connect(self.url) as connection:
+    #        cursor = connection.cursor()
+    #        query = "SELECT Books.BookID From Books Where Books.Title='{}';".format(book_name)
+    #        cursor.execute(query)
+    #        BookCommentid=cursor.fetchone()
+    #        cursor.close()
+    #       return BookCommentid[0]
 
-    def update_review(self,BookCommentid):
-        with dbapi2.connect(self.url) as connection:
-            cursor = connection.cursor()
-            query = "UPDATE BookComment SET review=review+1 WHERE BookCommentID={};".format(BookCommentid)
-            cursor.execute(query)
-            cursor.close()
-
-
-
-
+    #def update_review(self,BookCommentid):
+    #    with dbapi2.connect(self.url) as connection:
+    #        cursor = connection.cursor()
+    #        query = "UPDATE BookComment SET review=review+1 WHERE BookCommentID={};".format(BookCommentid)
+    #        cursor.execute(query)
+    #        cursor.close()
 
     def checkLogin(self,email,password):
        UserID = 0
@@ -172,7 +174,7 @@ class Database:
         return False
 
 
-    def getRewiev(self,bookId):
+    def getReview(self,bookId):
         info = None
         sum = 0
         avg = 0
