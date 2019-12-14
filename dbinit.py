@@ -75,8 +75,11 @@ INIT_STATEMENTS = [
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('emn','tpz','emn@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',0);
    
-    INSERT INTO UserContent (UserID,CommentsNum,FavAuthor, FavBook,FavPublisher,LikedCommentNum) 
-    VALUES (2,1,'ali', 'olasiliksiz','ugurYayincilik',2);
+    INSERT INTO UserContent (UserID,FavAuthor, FavBook,FavPublisher) 
+    VALUES (2,'ali', 'olasiliksiz','ugurYayincilik');
+
+    INSERT INTO UserContent (UserID) 
+    VALUES (1,'ali');
 
 
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Asoka', '96064 Norway Maple Hill', 31, '1/21/1977', 'Cassin LLC');

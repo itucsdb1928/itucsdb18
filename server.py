@@ -10,14 +10,14 @@ from datetime import date
 from cyripto import Crypto
 
 app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 db=Database()
 crp = Crypto()
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 @app.route('/')
 @app.route('/Home',methods=['GET','POST'])
 def homepage():
+    My_list = []
     if request.method == "POST":
         if request.form["btn"] == "search":
             db.book_name=request.form["search_book"]
@@ -25,8 +25,8 @@ def homepage():
         elif request.form["btn"] == "detail":
             db.book_name=request.form["Book_name"]
             db.book_detail=db.get_detail_page(db.book_name)
+            return redirect(url_for('detail_page'))
         elif request.form["btn"] == "add_book":
-
             return redirect(url_for('add_book'))
     else:
         My_list=db.get_home_page()
@@ -81,6 +81,7 @@ def sign_up_page():
 @app.route('/Profile',methods=['GET','POST'])
 def profile_page():
     profile=db.show_profile(db.UserId)
+    print("----->inforfile :",profile)
     if request.method == "POST":
         if request.form["btn"] == "edit_profile" :
             return redirect(url_for('edit_profile_page'))
