@@ -16,10 +16,10 @@ INIT_STATEMENTS = [
                      );
     CREATE TABLE IF NOT EXISTS BookComment( 
                       BookCommentID SERIAL PRIMARY KEY ,
-                      Like INTEGER DEFAULT 0,
                       UserRating INTEGER,
                       UserComment VARCHAR(500),
-                      CommentDate DATE 
+                      CommentDate DATE,
+                      Like INTEGER DEFAULT 0
                      );
                      
     CREATE TABLE IF NOT EXISTS Publisher( 
@@ -33,24 +33,24 @@ INIT_STATEMENTS = [
                      
     CREATE TABLE IF NOT EXISTS Books( 
                       BookID SERIAL PRIMARY KEY , 
-                      BookReview INTEGE DEFAULT 0,
                       Title VARCHAR(20),
                       PostDate  DATE,
                       PageNum INTEGER,
                       BookComment INTEGER REFERENCES BookComment (BookCommentID) , 
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
                       AuthorID INTEGER REFERENCES Author (AuthorID) ,
-                      Content VARCHAR(500)
+                      Content VARCHAR(500),
+                      BookReview INTEGER DEFAULT 0
                      );  
                     
                                           
     CREATE TABLE IF NOT EXISTS UserContent( 
-                      UserContentID SERIAL PRIMARY KEY , 
-                      LikedCommnetNum INTEGER,   
+                      UserContentID SERIAL PRIMARY KEY ,    
                       CommentsNum INTEGER,
                       FavAuthor VARCHAR(20),
                       FavBook VARCHAR(20),
-                      FavPublisher VARCHAR(20)
+                      FavPublisher VARCHAR(20),
+                      LikedCommnetNum INTEGER DEFAULT 0
                      );
                      
     CREATE TABLE IF NOT EXISTS Users(
