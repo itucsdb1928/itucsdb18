@@ -19,7 +19,7 @@ INIT_STATEMENTS = [
                       UserRating INTEGER,
                       UserComment VARCHAR(500),
                       CommentDate DATE,
-                      Like INTEGER DEFAULT 0
+                      LikeNum INTEGER DEFAULT 0
                      );
                      
     CREATE TABLE IF NOT EXISTS Publisher( 
