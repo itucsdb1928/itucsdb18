@@ -6,7 +6,7 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
     """
-        CREATE TABLE IF NOT EXISTS Author( 
+    CREATE TABLE IF NOT EXISTS Author( 
                       AuthorID SERIAL PRIMARY KEY , 
                       name VARCHAR(30), 
                       surname VARCHAR(30),
@@ -19,6 +19,7 @@ INIT_STATEMENTS = [
                       UserRating INTEGER,
                       UserComment VARCHAR(500),
                       CommentDate DATE,
+                      DislikeNum INTEGER,
                       LikeNum INTEGER DEFAULT 0
                      );
                      
@@ -67,7 +68,7 @@ INIT_STATEMENTS = [
 
     ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
     ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID);
-    ALTER TABLE BookComment ADD COLUMN DislikeNum INTEGER DEFAULT 0;       
+    ALTER TABLE BookComment ALTER COLUMN DislikeNum SET DEFAULT 0;      
     
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',1);
