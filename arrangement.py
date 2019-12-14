@@ -13,7 +13,31 @@ class Database:
         self.book_detail = None
         self.author_details=None
         self.publisher_details=None
+        self.publishers=self.all_publishers()
+        self.authors=self.all_authors()
     
+    def all_publishers(self):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Publisher.name,Publisher.PublisherID FROM Publisher;"
+            cursor.execute(query)
+            publishers = cursor.fetchall()
+            cursor.close()
+
+        return publishers
+
+    def all_authors(self):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Author.name,Author.surname,Author.AuthorID FROM Author;"
+            cursor.execute(query)
+            authors = cursor.fetchall()
+            cursor.close()
+
+        return authors
+
     def get_home_page(self):
        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
@@ -85,6 +109,14 @@ class Database:
             cursor.execute(query)
             cursor.close()
 
+    def add_new_book(self,title, postdate, PageNum, content, authorid, publisherid):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Books (Title, PostDate,PageNum,Content,AuthorID, PublisherID ) VALUES ('{}', '{}', {}, '{}',{},{} );".format(title, postdate, PageNum, content, authorid, publisherid)
+
+            cursor.execute(query)
+            cursor.close()
+
 
     def Search(self,name):
        with dbapi2.connect(self.url) as connection:
@@ -117,6 +149,8 @@ class Database:
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "DELETE FROM BookComment WHERE UserID={};".format(Userid)
+           cursor.execute(query)
+           query = "DELETE FROM UserContent WHERE UserID={};".format(Userid)
            cursor.execute(query)
            query = "DELETE FROM Users WHERE UserID={};".format(Userid)
            cursor.execute(query)

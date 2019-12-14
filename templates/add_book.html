@@ -1,0 +1,92 @@
+﻿{% extends 'layout.html' %}
+{% block content %}
+
+
+
+<h1>Add Book Page</h1>
+<form method="POST" class="form-horizontal" role="form" action="/Add_Book">
+<hr>
+
+
+
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Book Name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" name="title"  type="text" value="None">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Post Date:</label>
+            <div class="col-lg-8">
+              <input class="form-control" name="postdate"type="text" value="1/1/2019">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Page Number:</label>
+            <div class="col-lg-8">
+              <input class="form-control" name="PageNum"type="number" value=0>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Content:</label>
+            <div class="col-lg-8">
+              <input class="form-control" name="content"type="text" value="Lorem Ipsum Dolor">
+            </div>
+          </div>
+
+<div class="form-group">
+            <label class="col-lg-3 control-label">Author:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+
+
+                <select id="user_time_zone" name="Authorid"class="form-control">
+    {% for i in author %}
+                  <option value="{{i[2] }} ">{{i[0] }} {{i[1]}}</option>
+        {% endfor %}
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+<div class="form-group">
+            <label class="col-lg-3 control-label">Publisher:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+
+
+                <select id="user_time_zone" name="Publisherid"class="form-control">
+    {% for i in publisher %}
+                  <option value="{{i[1]}}">{{i[0]}}</option>
+        {% endfor %}
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+</hr>
+
+
+ <div class="form-group">
+
+
+
+            <input type="hidden" name="add_book" >
+
+                <button class="button is-danger" action="submit" id="add_book" name="btn" value="add_book">Add Book</button>
+                <input type="hidden" name="cancel" >
+
+                <button class="button is-danger" action="submit" id="cancel" name="btn" value="cancel">Cancel</button>
+
+
+
+
+          </div>
+
+    </form>
+
+    {% endblock content %}

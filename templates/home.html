@@ -5,6 +5,20 @@
 
 <h1>Home Page</h1>
 
+{% if user == 1 %}
+
+<form action="/Home" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="add_book" >
+
+                <button class="button is-danger" action="submit" id="add_book" name="btn" value="add_book">Add New Book</button>
+
+          </div>
+    </form>
+{% endif %}
+
 <form action="/Home" method="POST">
     <div class="columns">
         <div class="column is-one-fifth">

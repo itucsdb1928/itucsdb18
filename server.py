@@ -25,13 +25,32 @@ def homepage():
         elif request.form["btn"] == "detail":
             db.book_name=request.form["Book_name"]
             db.book_detail=db.get_detail_page(db.book_name)
-            #bookreviewid=db.get_review(db.book_name)
-            #db.update_review(bookreviewid)
+        elif request.form["btn"] == "add_book":
 
-            return redirect(url_for('detail_page'))
+            return redirect(url_for('add_book'))
     else:
         My_list=db.get_home_page()
-    return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list)
+    return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list,user=db.UserId)
+
+
+@app.route('/Add_Book',methods=['GET','POST'])
+def add_book():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "add_book":
+            title=request.form["title"]
+            postdate=request.form["postdate"]
+            PageNum=request.form["PageNum"]
+            content=request.form["content"]
+            authorid=request.form["Authorid"]
+            publisherid=request.form["Publisherid"]
+            db.add_new_book(title, postdate, PageNum, content, authorid, publisherid)
+
+            return redirect(url_for('homepage'))
+
+
+    return render_template('add_book.html', Status=db.UserId, title="New Book Page",publisher=db.publishers,author=db.authors)
 
 
 @app.route('/SignIn',methods=['GET','POST'])
