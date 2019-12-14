@@ -75,7 +75,7 @@ INIT_STATEMENTS = [
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('emn','tpz','emn@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',0);
    
-    INSERT INTO UserContent (UserID,CommentsNum,FavAuthor, FavBook,FavPublisher,LikedCommnetNum) 
+    INSERT INTO UserContent (UserID,CommentsNum,FavAuthor, FavBook,FavPublisher,LikedCommentNum) 
     VALUES (2,1,'ali', 'olasiliksiz','ugurYayincilik',2);
 
 
