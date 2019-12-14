@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1> {{name}} {{surname}}</h1>
+
+{% if user == 1 %}
+
+<form action="/Author_Profile" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="update_author" >
+
+                <button class="button is-danger" action="submit" id="update_author" name="btn" value="update_author">Edit Author</button>
+
+          </div>
+    </form>
+{% endif %}
+<table class="table is-hoverable">
+
+
+    <tr>
+        <th>Name</th>
+        <td>{{author[0]}}</td>
+    </tr>
+     <tr>
+       <th> Surname</th>
+        <td>{{author[1]}}</td>
+    </tr>
+     <tr>
+        <th>Birthdate</th>
+         <td>{{author[2]}}</td>
+    </tr>
+     <tr>
+      <th>Number of Books writed</th>
+       <td>{{author[3]}}</td>
+    </tr>
+     <tr>
+      <th>Country</th>
+       <td>{{author[4]}}</td>
+    </tr>
+
+
+</table>
+
+{% endblock content %}
+

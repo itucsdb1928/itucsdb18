@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{name}}  {{user}} </h1>
+
+
+{% if user == 1 %}
+
+<form action="/Publisher_Profile" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="update_publisher" >
+
+                <button class="button is-danger" action="submit" id="update_publisher" name="btn" value="update_publisher">Edit Publisher</button>
+
+          </div>
+    </form>
+{% endif %}
+<table class="table is-hoverable">
+
+
+    <tr>
+        <th>Adress</th>
+        <td>{{publisher[0]}}</td>
+    </tr>
+     <tr>
+       <th> Number Of Books Published</th>
+        <td>{{publisher[1]}}</td>
+    </tr>
+     <tr>
+        <th>Establishment Date</th>
+         <td>{{publisher[2]}}</td>
+    </tr>
+     <tr>
+      <th>Company Name</th>
+       <td>{{publisher[3]}}</td>
+    </tr>
+
+
+</table>
+
+
+{% endblock content %}
+

@@ -25,13 +25,32 @@ def homepage():
         elif request.form["btn"] == "detail":
             db.book_name=request.form["Book_name"]
             db.book_detail=db.get_detail_page(db.book_name)
-            #bookreviewid=db.get_review(db.book_name)
-            #db.update_review(bookreviewid)
+        elif request.form["btn"] == "add_book":
 
-            return redirect(url_for('detail_page'))
+            return redirect(url_for('add_book'))
     else:
         My_list=db.get_home_page()
-    return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list)
+    return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list,user=db.UserId)
+
+
+@app.route('/Add_Book',methods=['GET','POST'])
+def add_book():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "add_book":
+            title=request.form["title"]
+            postdate=request.form["postdate"]
+            PageNum=request.form["PageNum"]
+            content=request.form["content"]
+            authorid=request.form["Authorid"]
+            publisherid=request.form["Publisherid"]
+            db.add_new_book(title, postdate, PageNum, content, authorid, publisherid)
+
+            return redirect(url_for('homepage'))
+
+
+    return render_template('add_book.html', Status=db.UserId, title="New Book Page",publisher=db.publishers,author=db.authors)
 
 
 @app.route('/SignIn',methods=['GET','POST'])
@@ -68,9 +87,15 @@ def profile_page():
 
     return render_template('profile.html', Status=db.UserId, title = "Profile Page", profile=profile)
 
+
+
+
+    return render_template('detail_publisher.html', Status=db.UserId, title = "Publisher Detail Page")
+
 @app.route('/EditProfile',methods=['GET','POST'])
 def edit_profile_page():
     profile = db.show_profile(db.UserId)
+    print(profile)
     if request.method == "POST":
 
         if request.form["btn"] == "cancel" :
@@ -90,14 +115,64 @@ def edit_profile_page():
             db.edit_profile(name,surname,age,gender,email,db.UserId)
             return redirect(url_for('profile_page'))
 
-        # elif request.form["btn"] == "delete_profile":
-        #     db.delete_profile(db.UserId)
-        #     db.UserId=0
-        #     return redirect(url_for('sign_in_page'))
+
 
 
     return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
 
+
+@app.route('/EditAuthor',methods=['GET','POST'])
+def edit_author_page():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('author_detail_page'))
+        elif request.form["btn"] == "save_changes":
+            name = request.form["name"]
+            surname = request.form["surname"]
+            birthdate=request.form["birthdate"]
+            numberofbooks=request.form["numberofbooks"]
+            country=request.form["country"]
+            authorid=db.author_details[5]
+            db.edit_author(name,surname, birthdate, numberofbooks, country,authorid)
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_author.html', Status=db.UserId, title="Edit Author Page",author=db.author_details,user=db.UserId)
+
+@app.route('/EditPublisher',methods=['GET','POST'])
+def edit_publisher_page():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('publisher_detail_page'))
+        elif request.form["btn"] == "save_changes":
+            name = request.form["name"]
+            adress = request.form["adress"]
+            numberOfbooks=request.form["numberofbooks"]
+            establishmentdate=request.form["establismentdate"]
+            companyName=request.form["companyname"]
+            publisherid=db.publisher_details[4]
+            db.edit_publisher(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_publisher.html', Status=db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
+
+@app.route('/Author_Profile',methods=['GET','POST'])
+def author_detail_page():
+
+    nameAuthor=db.book_detail[0]
+    surnameAuthor=db.book_detail[1]
+    if request.method == "POST":
+        if request.form["btn"] == "update_author":
+            return redirect(url_for("edit_author_page"))
+
+
+    return render_template('detail_author.html', title="Author Detail Page",author=db.author_details, name=nameAuthor,surname=surnameAuthor,user=db.UserId)
+
+@app.route('/Publisher_Profile',methods=['GET','POST'])
+def publisher_detail_page():
+    if request.method == "POST":
+        if request.form["btn"] == "update_publisher":
+            return redirect(url_for("edit_publisher_page"))
+    return render_template('detail_publisher.html', title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
 
 @app.route('/Detail',methods=['GET','POST'])
 def detail_page():
@@ -132,6 +207,12 @@ def detail_page():
         elif request.form["btn"] == "-1":
             db.updateLike(request.form["custId"],"dislike")
             return redirect(url_for('detail_page'))
+        elif request.form["btn"] == "detailAuthor":
+            db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
+            return redirect(url_for('author_detail_page'))
+        elif request.form["btn"] == "detailPublisher":
+            db.publisher_details=db.show_publisher_detail(request.form["Publisher"])
+            return redirect(url_for('publisher_detail_page'))
             
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
