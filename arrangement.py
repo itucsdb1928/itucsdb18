@@ -181,7 +181,7 @@ class Database:
         rates = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]}
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
+           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate,BookComment.LikeNum,BookComment.DislikeNum from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
            cursor.execute(query)
            info = cursor.fetchall()
            cursor.close()
