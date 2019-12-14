@@ -35,7 +35,7 @@ INIT_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS Books( 
                       BookID SERIAL PRIMARY KEY , 
                       Title VARCHAR(20),
-                      PostDate  DATE,
+                      PostDate  DATE DEFAULT CURRENT_DATE,
                       PageNum INTEGER,
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
                       AuthorID INTEGER REFERENCES Author (AuthorID),
