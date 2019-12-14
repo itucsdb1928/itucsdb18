@@ -20,15 +20,26 @@
 <table class="table is-hoverable">
     <tr>
         <th>Author</th>
+        <th> Author Detail</th>
         <th>Publisher</th>
+         <th>Publisher Detail</th>
         <th>Page Number</th>
     </tr>
-
+<form action="/Detail" method="POST">
     <tr>
         <td>{{details[0]}} {{details[1]}}</td>
+        <input type="hidden" name="Author" value="{{details[0]}} {{details[1]}}">
+         <td>
+                <button class="button is-danger" action="submit" id="detailAuthor" name="btn" value="detailAuthor">See Author Detail</button>
+            </td>
         <td>{{details[2]}}</td>
+        <input type="hidden" name="Publisher" value="{{details[2]}}">
+         <td>
+                <button class="button is-danger" action="submit" id="detailPublisher" name="btn" value="detailPublisher">See Publisher Detail</button>
+            </td>
         <td>{{details[3]}}</td>
     </tr>
+  </form>
 </table>
 
 <h2>About book: </h2>

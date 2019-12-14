@@ -1,6 +1,5 @@
 import psycopg2 as dbapi2
-import psycopg2.extras
-from datetime import date
+
 from cyripto import Crypto
 
 
@@ -12,21 +11,19 @@ class Database:
         self.UserId = 0
         self.book_name = None
         self.book_detail = None
+        self.author_details=None
+        self.publisher_details=None
     
     def get_home_page(self):
        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT Books.Title,Books.content,Books.BookReview FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY bookid"
+           query = "SELECT Books.Title,Books.content,Books.BookReview FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY Books.BookReview DESC"
            cursor.execute(query)
            home = cursor.fetchall()
            cursor.close()
            
        return home
 
-    # def update_rewiev(self,Bookid):
-    #     with self.con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-    #         query = ""
-    #         cursor.execute(query)
 
 
     def get_detail_page(self,book_name):
@@ -45,8 +42,30 @@ class Database:
 
        return detail
 
+
+    def show_publisher_detail(self,publisherName):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Publisher.adress,Publisher.numberOfbooks,Publisher.establishmentDate,Publisher.companyName FROM Publisher,Books WHERE Publisher.publisherid=Books.publisherid AND Publisher.name='%s' ;" % (publisherName)
+            cursor.execute(query)
+            publisherDetails=cursor.fetchone()
+            cursor.close()
+            return publisherDetails
+
+    def show_author_detail(self,authorName,authorSurname):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Author.name,Author.surname,Author.Birthdate,Author.Numberofbooks,Author.Country FROM Author,Books WHERE Author.Authorid=Books.authorid AND Author.name='%s' AND Author.Surname='%s';" % (authorName,authorSurname)
+            cursor.execute(query)
+            authorDetails=cursor.fetchone()
+            cursor.close()
+            return authorDetails
+
+
     def delete_book(self, bookid):
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
             query = "DELETE FROM BookComment WHERE BookID={};".format(bookid)
             cursor.execute(query)
@@ -83,7 +102,7 @@ class Database:
            cursor.close()
 
     def delete_profile(self, Userid):
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "DELETE FROM BookComment WHERE UserID={};".format(Userid)
            cursor.execute(query)
@@ -91,21 +110,6 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
-    #def getNumberOfbookReview(self,book_name):
-    #    with dbapi2.connect(self.url) as connection:
-    #        cursor = connection.cursor()
-    #        query = "SELECT Books.BookID From Books Where Books.Title='{}';".format(book_name)
-    #        cursor.execute(query)
-    #        BookCommentid=cursor.fetchone()
-    #        cursor.close()
-    #       return BookCommentid[0]
-
-    #def update_review(self,BookCommentid):
-    #    with dbapi2.connect(self.url) as connection:
-    #        cursor = connection.cursor()
-    #        query = "UPDATE BookComment SET review=review+1 WHERE BookCommentID={};".format(BookCommentid)
-    #        cursor.execute(query)
-    #        cursor.close()
 
     def checkLogin(self,email,password):
        UserID = 0

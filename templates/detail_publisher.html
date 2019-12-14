@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{name}}</h1>
+
+
+<table class="table is-hoverable">
+
+
+    <tr>
+        <th>Adress</th>
+        <td>{{publisher[0]}}</td>
+    </tr>
+     <tr>
+       <th> Number Of Books Published</th>
+        <td>{{publisher[1]}}</td>
+    </tr>
+     <tr>
+        <th>Establishment Date</th>
+         <td>{{publisher[2]}}</td>
+    </tr>
+     <tr>
+      <th>Company Name</th>
+       <td>{{publisher[3]}}</td>
+    </tr>
+
+
+</table>
+
+
+{% endblock content %}
+

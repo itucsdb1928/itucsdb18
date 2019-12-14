@@ -68,6 +68,11 @@ def profile_page():
 
     return render_template('profile.html', Status=db.UserId, title = "Profile Page", profile=profile)
 
+
+
+
+    return render_template('detail_publisher.html', Status=db.UserId, title = "Publisher Detail Page")
+
 @app.route('/EditProfile',methods=['GET','POST'])
 def edit_profile_page():
     profile = db.show_profile(db.UserId)
@@ -90,14 +95,21 @@ def edit_profile_page():
             db.edit_profile(name,surname,age,gender,email,db.UserId)
             return redirect(url_for('profile_page'))
 
-        # elif request.form["btn"] == "delete_profile":
-        #     db.delete_profile(db.UserId)
-        #     db.UserId=0
-        #     return redirect(url_for('sign_in_page'))
+
 
 
     return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
 
+
+@app.route('/Author_Profile',methods=['GET','POST'])
+def author_detail_page():
+    nameAuthor=db.book_detail[0]
+    surnameAuthor=db.book_detail[1]
+    return render_template('detail_author.html', author=db.author_details, name=nameAuthor,surname=surnameAuthor)
+
+@app.route('/Publisher_Profile',methods=['GET','POST'])
+def publisher_detail_page():
+    return render_template('detail_publisher.html', publisher=db.publisher_details, name=db.book_detail[2])
 
 @app.route('/Detail',methods=['GET','POST'])
 def detail_page():
@@ -132,6 +144,12 @@ def detail_page():
         elif request.form["btn"] == "-1":
             db.updateLike(request.form["custId"],"dislike")
             return redirect(url_for('detail_page'))
+        elif request.form["btn"] == "detailAuthor":
+            db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
+            return redirect(url_for('author_detail_page'))
+        elif request.form["btn"] == "detailPublisher":
+            db.publisher_details=db.show_publisher_detail(request.form["Publisher"])
+            return redirect(url_for('publisher_detail_page'))
             
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
