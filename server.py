@@ -125,6 +125,14 @@ def detail_page():
         elif request.form["btn"] == "delete_book":
             db.delete_book(bookId)
             return redirect(url_for('homepage'))
+        elif request.form["btn"] == "1":
+            print("ım here",request.form["custId"])
+            db.updateLike(request.form["custId"],"like")
+            return redirect(url_for('detail_page'))
+        elif request.form["btn"] == "-1":
+            db.updateLike(request.form["custId"],"dislike")
+            return redirect(url_for('detail_page'))
+            
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
 

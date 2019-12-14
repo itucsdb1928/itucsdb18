@@ -158,14 +158,28 @@
 
                 {% for i in rateInfo[4] %}
                 <div class="media">
+                    {% if user != 0 %}
+                    <form action="/Detail" method="POST">
+                        <input type="hidden" id="custId" name="custId" value={{i[6]}}>
+                        <a class="like">
+                            <i class="fa fa-thumbs-o-up"></i>
+                            {{ i[4] }} <input type="submit" class="qty1" name="btn" readonly="readonly" value="1" />
+                        </a>
+                        <a class="dislike">
+                            <i class="fa fa-thumbs-o-down"></i>
+                            {{ i[5] }} <input type="submit" class="qty2" name="btn" readonly="readonly" value="-1" />
+                        </a>
+                    </form>
+                    {% else %}
                     <a class="like">
                         <i class="fa fa-thumbs-o-up"></i>
-                        {{ i[4] }} <input type="submit" class="qty1" name="qty1" readonly="readonly" value="1" />
+                        {{ i[4] }}
                     </a>
                     <a class="dislike">
                         <i class="fa fa-thumbs-o-down"></i>
-                        {{ i[5] }} <input type="submit" class="qty2" name="qty2" readonly="readonly" value="-1" />
+                        {{ i[5] }}
                     </a>
+                    {% endif %}
                     <p class="pull-right"><small>{{(today - i[3]).days}} days ago</small></p>
                     <div class="media-body">
                         <h4 class="media-heading user_name">{{i[2]}}</h4>

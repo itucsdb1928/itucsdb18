@@ -116,9 +116,10 @@ class Database:
            cursor.execute(query)
            info = cursor.fetchone()
            cursor.close()
-
-       if(password == self.crt.secret2password(info[1]).decode("utf-8")):
-           UserID = info[0]
+       
+       if(info is not None):
+           if(password == self.crt.secret2password(info[1]).decode("utf-8")):
+               UserID = info[0]
 
        return UserID
 
@@ -181,7 +182,7 @@ class Database:
         rates = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]}
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate,BookComment.LikeNum,BookComment.DislikeNum from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
+           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate,BookComment.LikeNum,BookComment.DislikeNum,users.UserId from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
            cursor.execute(query)
            info = cursor.fetchall()
            cursor.close()
@@ -209,3 +210,21 @@ class Database:
            query = "UPDATE books SET content = '%s' WHERE bookid = %d" %(newComment,bookId)
            cursor.execute(query)
            cursor.close()
+
+    
+    def updateLike(self,userId,type):
+         if(type == "like"):
+             with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "UPDATE UserContent SET LikedCommnetNum = LikedCommnetNum+1 WHERE UserID=%s"%(userId)
+                cursor.execute(query)
+                cursor.close()
+
+         with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            if(type == "like"):
+                query = "UPDATE BookComment SET LikeNum = LikeNum+1 WHERE UserID=%s"%(userId)
+            else:
+                query = "UPDATE BookComment SET DislikeNum = DislikeNum+1 WHERE UserID=%s"%(userId)
+            cursor.execute(query)
+            cursor.close()
