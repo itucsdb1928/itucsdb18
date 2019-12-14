@@ -78,8 +78,7 @@ INIT_STATEMENTS = [
     INSERT INTO UserContent (UserID,FavAuthor, FavBook,FavPublisher) 
     VALUES (2,'ali', 'olasiliksiz','ugurYayincilik');
 
-    INSERT INTO UserContent (UserID) 
-    VALUES (1,'ali');
+    INSERT INTO UserContent (UserID) VALUES (1);
 
 
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Asoka', '96064 Norway Maple Hill', 31, '1/21/1977', 'Cassin LLC');
