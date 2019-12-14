@@ -39,20 +39,11 @@ INIT_STATEMENTS = [
                       PageNum INTEGER,
                       BookComment INTEGER REFERENCES BookComment (BookCommentID) , 
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
-                      AuthorID INTEGER REFERENCES Author (AuthorID) ,
+                      AuthorID INTEGER REFERENCES Author (AuthorID),
                       Content VARCHAR(500),
                       BookReview INTEGER DEFAULT 0
                      );  
-                    
-                                          
-    CREATE TABLE IF NOT EXISTS UserContent( 
-                      UserContentID SERIAL PRIMARY KEY ,    
-                      CommentsNum INTEGER,
-                      FavAuthor VARCHAR(20),
-                      FavBook VARCHAR(20),
-                      FavPublisher VARCHAR(20),
-                      LikedCommnetNum INTEGER DEFAULT 0
-                     );
+                                      
                      
     CREATE TABLE IF NOT EXISTS Users(
                       UserID SERIAL PRIMARY KEY, 
@@ -60,21 +51,35 @@ INIT_STATEMENTS = [
                       surname VARCHAR (50)  NOT NULL, 
                       gender VARCHAR (6) NULL, 
                       age VARCHAR (3) NULL,
-                      content INTEGER REFERENCES UserContent (UserContentID),
                       email VARCHAR (50) UNIQUE NOT NULL,
                       password VARCHAR (100)  NOT NULL,
                       isAdmin INTEGER DEFAULT 0
                      );
 
+    CREATE TABLE IF NOT EXISTS UserContent( 
+                      UserContentID SERIAL PRIMARY KEY ,
+                      UserID INTEGER REFERENCES Users (UserID),
+                      CommentsNum INTEGER,
+                      FavAuthor VARCHAR(20),
+                      FavBook VARCHAR(20),
+                      FavPublisher VARCHAR(20),
+                      LikedCommnetNum INTEGER DEFAULT 0
+                     );
+
     ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
     ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID);
     ALTER TABLE BookComment ALTER COLUMN DislikeNum SET DEFAULT 0;      
-    
+    ALTER TABLE UserContent ALTER COLUMN CommentsNum SET DEFAULT 0;
+
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',1);
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('emn','tpz','emn@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',0);
    
+    INSERT INTO UserContent (UserID,CommentsNum,FavAuthor, FavBook,FavPublisher,LikedCommnetNum) 
+    VALUES (2,1,'ali', 'olasiliksiz','ugurYayincilik',2);
+
+
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Asoka', '96064 Norway Maple Hill', 31, '1/21/1977', 'Cassin LLC');
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Overhold', '03 Oneill Alley', 70, '10/10/1961', 'Ankunding, Macejkovic and Hansen');
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Veribet', '99353 Bashford Drive', 27, '8/2/1967', 'Boyle, McCullough and Macejkovic');
