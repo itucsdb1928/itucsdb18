@@ -14,9 +14,9 @@ INIT_STATEMENTS = [
                       numberOfbooks INTEGER,
                       country VARCHAR(40)
                      );
-    CREATE TABLE IF NOT EXISTS BookReview( 
-                      BookReviewID SERIAL PRIMARY KEY ,
-                      review INTEGER DEFAULT 0,
+    CREATE TABLE IF NOT EXISTS BookComment( 
+                      BookCommentID SERIAL PRIMARY KEY ,
+                      Like INTEGER DEFAULT 0,
                       UserRating INTEGER,
                       UserComment VARCHAR(500),
                       CommentDate DATE 
@@ -33,10 +33,11 @@ INIT_STATEMENTS = [
                      
     CREATE TABLE IF NOT EXISTS Books( 
                       BookID SERIAL PRIMARY KEY , 
+                      BookReview INTEGE DEFAULT 0,
                       Title VARCHAR(20),
                       PostDate  DATE,
                       PageNum INTEGER,
-                      BookReview INTEGER REFERENCES BookReview (BookReviewID) , 
+                      BookComment INTEGER REFERENCES BookComment (BookCommentID) , 
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
                       AuthorID INTEGER REFERENCES Author (AuthorID) ,
                       Content VARCHAR(500)
@@ -45,14 +46,14 @@ INIT_STATEMENTS = [
                                           
     CREATE TABLE IF NOT EXISTS UserContent( 
                       UserContentID SERIAL PRIMARY KEY , 
-                      VoteNum INTEGER,        
+                      LikedCommnetNum INTEGER,   
                       CommentsNum INTEGER,
                       FavAuthor VARCHAR(20),
                       FavBook VARCHAR(20),
                       FavPublisher VARCHAR(20)
                      );
                      
-    CREATE TABLE IF NOT EXISTS Users( 
+    CREATE TABLE IF NOT EXISTS Users(
                       UserID SERIAL PRIMARY KEY, 
                       name VARCHAR (50)  NOT NULL, 
                       surname VARCHAR (50)  NOT NULL, 
@@ -64,8 +65,8 @@ INIT_STATEMENTS = [
                       isAdmin INTEGER DEFAULT 0
                      );
 
-    ALTER TABLE BookReview ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
-    ALTER TABLE BookReview ADD COLUMN BookID INTEGER REFERENCES Books (BookID);       
+    ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
+    ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID);       
     
     INSERT INTO Users (name,surname, email,password,isAdmin) 
     VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',1);
@@ -158,10 +159,10 @@ INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Prod
 INSERT INTO Books (Title, PageNum, PublisherID, AuthorID, Content) VALUES ('Ronstring', 251, 6, 17, 'Duis at velit congue elementum.');
 
 
-INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 1 ,2,'kotu','1/21/2019');
-INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 1 ,3,'idare eder','9/19/2019');
-INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 2 ,4,'idare eder','11/15/2019');
-INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 2 ,5,'cok ii','11/30/2019');
+INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 1 ,2,'kotu','1/21/2019');
+INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 1 ,3,'idare eder','9/19/2019');
+INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (1, 2 ,4,'idare eder','11/15/2019');
+INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (2, 2 ,5,'cok ii','11/30/2019');
 
 
     """
