@@ -68,7 +68,7 @@ class Database:
     def show_profile(self,UserId):
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT * FROM Users WHERE UserID={}".format(UserId)
+           query = "SELECT users.name,users.surname,users.gender,users.age,users.email,usercontent.commentsnum,usercontent.favauthor,usercontent.favbook,usercontent.favpublisher,usercontent.likedcommentnum FROM Users,usercontent WHERE Users.UserID=usercontent.userid and Users.UserID={}".format(UserId)
            cursor.execute(query)
            profile = cursor.fetchall()
            cursor.close()
@@ -125,12 +125,12 @@ class Database:
 
 
     def insertNewUser(self,form):
+        userId = 0
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "select email from users where email = '%s';" %(form.email.data)
            cursor.execute(query)
            info = cursor.fetchone()
-          
 
         if info is None:
             with dbapi2.connect(self.url) as connection:
@@ -145,13 +145,26 @@ class Database:
                 cursor.execute(query)
                 info = cursor.fetchone()
                 cursor.close()
+                userId = info[0]
+                
 
-                return info[0]
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "INSERT INTO UserContent (userid) VALUES ('%s');" %(userId)
+                cursor.execute(query)
+                cursor.close()
 
-        return 0
+        return userId
 
     def insertRate(self,userId,bookId,form,today):
         info = None
+
+        with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "UPDATE UserContent SET CommentsNum = CommentsNum+1 WHERE UserID=%s"%(userId)
+                cursor.execute(query)
+                cursor.close()
+
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
@@ -163,6 +176,7 @@ class Database:
 
     def checkUser(self,userId,bookId):
         info = None
+
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
            query = "SELECT userid FROM BookComment where userid = '%d' and bookid = %d" %(userId,bookId)
@@ -216,7 +230,7 @@ class Database:
          if(type == "like"):
              with dbapi2.connect(self.url) as connection:
                 cursor = connection.cursor()
-                query = "UPDATE UserContent SET LikedCommnetNum = LikedCommnetNum+1 WHERE UserID=%s"%(userId)
+                query = "UPDATE UserContent SET LikedCommentNum = LikedCommentNum+1 WHERE UserID=%s"%(userId)
                 cursor.execute(query)
                 cursor.close()
 
