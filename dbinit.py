@@ -37,7 +37,6 @@ INIT_STATEMENTS = [
                       Title VARCHAR(20),
                       PostDate  DATE,
                       PageNum INTEGER,
-                      BookComment INTEGER REFERENCES BookComment (BookCommentID) , 
                       PublisherID INTEGER REFERENCES Publisher (PublisherID), 
                       AuthorID INTEGER REFERENCES Author (AuthorID),
                       Content VARCHAR(500),
@@ -63,7 +62,7 @@ INIT_STATEMENTS = [
                       FavAuthor VARCHAR(20),
                       FavBook VARCHAR(20),
                       FavPublisher VARCHAR(20),
-                      LikedCommnetNum INTEGER DEFAULT 0
+                      LikedCommentNum INTEGER DEFAULT 0
                      );
 
     ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
