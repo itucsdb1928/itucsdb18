@@ -42,7 +42,7 @@ class Database:
     def delete_book(self, bookid):
         with dbapi2.connect(url) as connection:
             cursor = connection.cursor()
-            query = "DELETE FROM BookReview WHERE BookID={};".format(bookid)
+            query = "DELETE FROM BookComment WHERE BookID={};".format(bookid)
             cursor.execute(query)
             query = "DELETE FROM Books WHERE BookID={};".format(bookid)
             cursor.execute(query)
@@ -79,7 +79,7 @@ class Database:
     def delete_profile(self, Userid):
         with dbapi2.connect(url) as connection:
            cursor = connection.cursor()
-           query = "DELETE FROM BookReview WHERE UserID={};".format(Userid)
+           query = "DELETE FROM BookComment WHERE UserID={};".format(Userid)
            cursor.execute(query)
            query = "DELETE FROM Users WHERE UserID={};".format(Userid)
            cursor.execute(query)
@@ -90,14 +90,14 @@ class Database:
             cursor = connection.cursor()
             query = "SELECT Books.BookID From Books Where Books.Title='{}';".format(book_name)
             cursor.execute(query)
-            bookreviewid=cursor.fetchone()
+            BookCommentid=cursor.fetchone()
             cursor.close()
-            return bookreviewid[0]
+            return BookCommentid[0]
 
-    def update_review(self,bookreviewid):
+    def update_review(self,BookCommentid):
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
-            query = "UPDATE BookReview SET review=review+1 WHERE BookReviewID={};".format(bookreviewid)
+            query = "UPDATE BookComment SET review=review+1 WHERE BookCommentID={};".format(BookCommentid)
             cursor.execute(query)
             cursor.close()
 
@@ -151,7 +151,7 @@ class Database:
         info = None
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "INSERT INTO bookreview (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
+           query = "INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
            cursor.execute(query)
            cursor.close()
            return True
@@ -162,7 +162,7 @@ class Database:
         info = None
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT userid FROM bookreview where userid = '%d' and bookid = %d" %(userId,bookId)
+           query = "SELECT userid FROM BookComment where userid = '%d' and bookid = %d" %(userId,bookId)
            cursor.execute(query)
            info = cursor.fetchone()
            cursor.close()
@@ -179,7 +179,7 @@ class Database:
         rates = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]}
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT bookreview.userrating,bookreview.usercomment,users.name,bookreview.commentdate from bookreview,users WHERE bookreview.userid = users.userid and  bookid =  %d" %(bookId)
+           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
            cursor.execute(query)
            info = cursor.fetchall()
            cursor.close()
