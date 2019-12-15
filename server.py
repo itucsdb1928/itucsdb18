@@ -197,6 +197,7 @@ def detail_page():
     if request.method == "POST":
         if request.form["btn"] == "ratingBtn" :
             userWiev = request.form
+            print(userWiev)
             today = today.strftime("%m/%d/%Y")
             result = db.insertRate(db.UserId,bookId,userWiev,today)
             if(result):
@@ -215,12 +216,14 @@ def detail_page():
         elif request.form["btn"] == "-1":
             db.updateLike(request.form["custId"],"dislike")
             return redirect(url_for('detail_page'))
-        elif request.form["btn"] == "detailAuthor":
-            db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
-            return redirect(url_for('author_detail_page'))
-        elif request.form["btn"] == "detailPublisher":
-            db.publisher_details=db.show_publisher_detail(request.form["Publisher"])
-            return redirect(url_for('publisher_detail_page'))
+        elif request.form["btn"] == "detail_p_a":
+            if request.form['radiobutton']=='author':
+                db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
+                return redirect(url_for('author_detail_page'))
+            else:
+                db.publisher_details=db.show_publisher_detail(db.book_detail[2])
+                return redirect(url_for('publisher_detail_page'))
+
             
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
