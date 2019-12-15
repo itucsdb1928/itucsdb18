@@ -93,6 +93,7 @@ class Database:
            query = "UPDATE Author SET name='{}',surname='{}',birthdate='{}',numberofbooks={},country='{}' WHERE authorid={};".format(name,surname, birthdate, numberofbooks, country,authorid)
            cursor.execute(query)
            cursor.close()
+
     def edit_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName,publisherid):
          with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
