@@ -39,7 +39,7 @@ INIT_STATEMENTS = [
                       PostDate  DATE DEFAULT CURRENT_DATE,
                       PageNum INTEGER,
                       PublisherID INTEGER  REFERENCES Publisher (PublisherID)  , 
-                      AuthorID INTEGER  REFERENCES Author (AuthorID) ON DELETE ,
+                      AuthorID INTEGER  REFERENCES Author (AuthorID),
                       Content VARCHAR(500),
                       BookReview INTEGER DEFAULT 0
                      );  
