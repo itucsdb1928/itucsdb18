@@ -136,6 +136,9 @@ def edit_author_page():
             authorid=db.author_details[5]
             db.edit_author(name,surname, birthdate, numberofbooks, country,authorid)
             return redirect(url_for('homepage'))
+        elif request.form["btn"] == "delete_author":
+            db.delete_author(db.author_details[5])
+            return redirect(url_for('homepage'))
 
     return render_template('edit_author.html', Status=db.UserId, title="Edit Author Page",author=db.author_details,user=db.UserId)
 

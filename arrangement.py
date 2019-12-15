@@ -108,6 +108,14 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
+    def delete_author(self, authorid):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM Author WHERE AuthorID={};".format(authorid)
+            cursor.execute(query)
+            cursor.close()
+
     def delete_book(self, bookid):
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
