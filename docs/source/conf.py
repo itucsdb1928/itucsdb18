@@ -19,9 +19,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'ITUCSDB18NN'
-copyright = '2018, ITUCSDB18NN'
-author = 'ITUCSDB18NN'
+project = 'ITUCSDB1928'
+copyright = '2019, ITUCSDB1928'
+author = 'ITUCSDB1928'
 
 # The short X.Y version
 version = ''
