@@ -288,7 +288,7 @@ class Database:
         info = None
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "UPDATE books SET content = '%s' WHERE bookid = %d" %(newComment,bookId)
+           query = "UPDATE Books SET content = '%s' WHERE BookID = %d" %( newComment , bookId)
            cursor.execute(query)
            cursor.close()
 
