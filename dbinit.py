@@ -38,8 +38,8 @@ INIT_STATEMENTS = [
                       Title VARCHAR(20),
                       PostDate  DATE DEFAULT CURRENT_DATE,
                       PageNum INTEGER,
-                      PublisherID INTEGER  DEFAULT 99 REFERENCES Publisher (PublisherID) ON DELETE SET DEFAULT , 
-                      AuthorID INTEGER DEFAULT 99 REFERENCES Author (AuthorID) ON DELETE SET DEFAULT,
+                      PublisherID INTEGER  REFERENCES Publisher (PublisherID)  , 
+                      AuthorID INTEGER  REFERENCES Author (AuthorID) ON DELETE ,
                       Content VARCHAR(500),
                       BookReview INTEGER DEFAULT 0
                      );  
@@ -81,8 +81,7 @@ INIT_STATEMENTS = [
 
     INSERT INTO UserContent (UserID) VALUES (1);
     
-INSERT INTO Publisher (PublisherID,name, adress, numberOfbooks, establishmentDate, companyName) VALUES (99,'None', 'No Adress', 0, '1/1/1900', 'No Company');
-INSERT INTO Author (AuthorID,name, surname, birthDate, numberOfbooks, country) VALUES (99,'No Name', 'No Surname', '1/1/1900', 0, 'None');
+
 
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Asoka', '96064 Norway Maple Hill', 31, '1/21/1977', 'Cassin LLC');
 INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('Overhold', '03 Oneill Alley', 70, '10/10/1961', 'Ankunding, Macejkovic and Hansen');
