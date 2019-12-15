@@ -137,7 +137,7 @@ def edit_author_page():
             db.edit_author(name,surname, birthdate, numberofbooks, country,authorid)
             return redirect(url_for('homepage'))
         elif request.form["btn"] == "delete_author":
-            db.delete_author(db.author_details[5])
+            # db.delete_author(db.author_details[5])
             return redirect(url_for('homepage'))
 
     return render_template('edit_author.html', Status=db.UserId, title="Edit Author Page",author=db.author_details,user=db.UserId)
@@ -158,7 +158,7 @@ def edit_publisher_page():
             db.edit_publisher(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
             return redirect(url_for('homepage'))
         elif request.form["btn"] == "delete_publisher":
-            db.delete_publisher(db.publisher_details[4])
+            # db.delete_publisher(db.publisher_details[4])
             return redirect(url_for('homepage'))
 
     return render_template('edit_publisher.html', Status=db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)

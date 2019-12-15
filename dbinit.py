@@ -38,8 +38,8 @@ INIT_STATEMENTS = [
                       Title VARCHAR(20),
                       PostDate  DATE DEFAULT CURRENT_DATE,
                       PageNum INTEGER,
-                      PublisherID INTEGER  REFERENCES Publisher (PublisherID) SET NULL , 
-                      AuthorID INTEGER  REFERENCES Author (AuthorID) SET NULL,
+                      PublisherID INTEGER  REFERENCES Publisher (PublisherID) , 
+                      AuthorID INTEGER  REFERENCES Author (AuthorID) ,
                       Content VARCHAR(500),
                       BookReview INTEGER DEFAULT 0
                      );  
