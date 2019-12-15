@@ -173,14 +173,14 @@ def author_detail_page():
             return redirect(url_for("edit_author_page"))
 
 
-    return render_template('detail_author.html', title="Author Detail Page",author=db.author_details, name=nameAuthor,surname=surnameAuthor,user=db.UserId)
+    return render_template('detail_author.html',Status =db.UserId, title="Author Detail Page",author=db.author_details, name=nameAuthor,surname=surnameAuthor,user=db.UserId)
 
 @app.route('/Publisher_Profile',methods=['GET','POST'])
 def publisher_detail_page():
     if request.method == "POST":
         if request.form["btn"] == "update_publisher":
             return redirect(url_for("edit_publisher_page"))
-    return render_template('detail_publisher.html', title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
+    return render_template('detail_publisher.html',Status =db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
 
 @app.route('/Detail',methods=['GET','POST'])
 def detail_page():

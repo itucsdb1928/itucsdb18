@@ -29,9 +29,10 @@
 </form>
 <table class="table is-hoverable">
     <tr>
-        <th>Book Name falan</th>
+        <th>Book Name</th>
         <th>Contentr</th>
         <th>Bok Review</th>
+        <th>Post Date</th>
         <th>Detail</th>
 
     </tr>
@@ -45,6 +46,7 @@
             <input type="hidden" name="Book_name" value="{{i[0]}}">
             <td>{{i[1]}}</td>
             <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
             <td>
                 <button class="button is-danger" action="submit" id="detailButton" name="btn" value="detail">See Detail</button>
             </td>

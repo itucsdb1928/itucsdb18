@@ -41,7 +41,7 @@ class Database:
     def get_home_page(self):
        with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "SELECT Books.Title,Books.content,Books.BookReview FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY Books.BookReview DESC"
+           query = "SELECT Books.Title,Books.content,Books.BookReview,Books.PostDate FROM Books,Author,Publisher  WHERE Books.PublisherID=Publisher.PublisherID AND Books.AuthorID=Author.AuthorID ORDER BY Books.BookReview DESC"
            cursor.execute(query)
            home = cursor.fetchall()
            cursor.close()
