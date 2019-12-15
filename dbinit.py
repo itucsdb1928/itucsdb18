@@ -38,8 +38,8 @@ INIT_STATEMENTS = [
                       Title VARCHAR(20),
                       PostDate  DATE DEFAULT CURRENT_DATE,
                       PageNum INTEGER,
-                      PublisherID INTEGER  REFERENCES Publisher (PublisherID) , 
-                      AuthorID INTEGER  REFERENCES Author (AuthorID) ,
+                      PublisherID INTEGER  REFERENCES Publisher (PublisherID) ON DELETE CASCADE, 
+                      AuthorID INTEGER  REFERENCES Author (AuthorID) ON DELETE CASCADE,
                       Content VARCHAR(500),
                       BookReview INTEGER DEFAULT 0
                      );  
@@ -58,7 +58,7 @@ INIT_STATEMENTS = [
 
     CREATE TABLE IF NOT EXISTS UserContent( 
                       UserContentID SERIAL PRIMARY KEY ,
-                      UserID INTEGER REFERENCES Users (UserID),
+                      UserID INTEGER REFERENCES Users (UserID)ON DELETE CASCADE,
                       CommentsNum INTEGER,
                       FavAuthor VARCHAR(20),
                       FavBook VARCHAR(20),
@@ -66,8 +66,8 @@ INIT_STATEMENTS = [
                       LikedCommentNum INTEGER DEFAULT 0
                      );
 
-    ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID);
-    ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID);
+    ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID) ON DELETE CASCADE;
+    ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID) ON DELETE CASCADE;
     ALTER TABLE BookComment ALTER COLUMN DislikeNum SET DEFAULT 0;      
     ALTER TABLE UserContent ALTER COLUMN CommentsNum SET DEFAULT 0;
 
