@@ -7,6 +7,22 @@
 <div class="container">
     <h1>Edit Publisher</h1>
 
+    {% if user == 1 %}
+
+<form action="/EditPublisher" method="POST">
+ <div class="form-group">
+
+
+                <input type="hidden" name="delete_publisher" >
+
+                <button class="button is-danger" action="submit" id="delete_publisher" name="btn" value="delete_publisher">Delete Publisher</button>
+
+          </div>
+    </form>
+{% endif %}
+
+
+
  <form method="POST" class="form-horizontal" role="form" action="/EditPublisher">
 
 

@@ -141,6 +141,7 @@ def edit_author_page():
 
 @app.route('/EditPublisher',methods=['GET','POST'])
 def edit_publisher_page():
+    print(db.publisher_details[4])
     if request.method == "POST":
         if request.form["btn"] == "cancel":
             return redirect(url_for('publisher_detail_page'))
@@ -152,6 +153,9 @@ def edit_publisher_page():
             companyName=request.form["companyname"]
             publisherid=db.publisher_details[4]
             db.edit_publisher(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "delete_publisher":
+            db.delete_publisher(db.publisher_details[4])
             return redirect(url_for('homepage'))
 
     return render_template('edit_publisher.html', Status=db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
