@@ -67,7 +67,6 @@ def add_author():
             birthdate = request.form["birthdate"]
             numberofbooks = request.form["numberofbooks"]
             country = request.form["country"]
-            print(name,surname, birthdate, numberofbooks, country)
             db.add_new_author(name,surname, birthdate, numberofbooks, country)
 
             return redirect(url_for('homepage'))
@@ -86,7 +85,6 @@ def add_publisher():
             numberOfbooks = request.form["numberofbooks"]
             establishmentdate = request.form["establismentdate"]
             companyName = request.form["companyname"]
-            print(name,adress,numberOfbooks, establishmentdate, companyName)
             db.add_new_publisher(name,adress,numberOfbooks, establishmentdate, companyName)
 
             return redirect(url_for('homepage'))
