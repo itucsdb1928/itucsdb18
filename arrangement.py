@@ -13,8 +13,9 @@ class Database:
         self.book_detail = None
         self.author_details=None
         self.publisher_details=None
-        self.publishers=self.all_publishers()
-        self.authors=self.all_authors()
+        self.country = ['Turkey', 'England', 'Poland', 'Indonesia', 'China', 'Portugal', 'Russia', 'Pakistan', 'Malta',
+                        'Colombia', 'Lebanon', 'Argentina', 'Sierra Leone', 'Sri Lanka', 'Peru', 'Serbia', 'Guatemala',
+                        'France', 'Greece', 'South Korea', 'Egypt', 'Sweden']
     
     def all_publishers(self):
 
@@ -130,6 +131,22 @@ class Database:
         with dbapi2.connect(self.url) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO Books (Title, PostDate,PageNum,Content,AuthorID, PublisherID ) VALUES ('{}', '{}', {}, '{}',{},{} );".format(title, postdate, PageNum, content, authorid, publisherid)
+
+            cursor.execute(query)
+            cursor.close()
+
+    def add_new_author(self, name,surname, birthdate, numberofbooks, country):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Author (name, surname, birthDate, numberOfbooks, country) VALUES ('{}', '{}', '{}', {}, '{}');".format(name,surname, birthdate, numberofbooks, country)
+
+            cursor.execute(query)
+            cursor.close()
+
+    def add_new_publisher(self, name,adress,numberOfbooks, establishmentdate, companyName):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Publisher (name, adress, numberOfbooks, establishmentDate, companyName) VALUES ('{}', '{}',{}, '{}', '{}');".format(name, adress, numberOfbooks, establishmentdate, companyName)
 
             cursor.execute(query)
             cursor.close()
@@ -309,3 +326,4 @@ class Database:
                 query = "UPDATE BookComment SET DislikeNum = DislikeNum+1 WHERE UserID=%s"%(userId)
             cursor.execute(query)
             cursor.close()
+
