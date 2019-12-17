@@ -1,15 +1,8 @@
 ﻿{% extends 'layout.html' %}
 {% block content %}
-
-
-
-
 <div class="container">
     <h1>Edit author</h1>
-
-
     {% if user == 1 %}
-
 <form action="/EditAuthor" method="POST">
  <div class="form-group">
 
@@ -22,66 +15,51 @@
     </form>
 {% endif %}
 
-
  <form method="POST" class="form-horizontal" role="form" action="/EditAuthor">
-
-
-<hr>
-
-
+            {{ form.hidden_tag() }}
+     <hr>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Name:</label>
+            {{ form.name.label( class="col-lg-3 control-label") }}
             <div class="col-lg-8">
-              <input class="form-control" name="name"  type="text" value="{{author[0]}}">
+                {{ form.name(class="form-control") }}
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Surname:</label>
+            {{form.surname.label( class="col-lg-3 control-label")}}
             <div class="col-lg-8">
-              <input class="form-control" name="surname"type="text" value="{{author[1]}}">
+                {{form.surname(class="form-control")}}
             </div>
           </div>
-     <div class="form-group">
-            <label class="col-lg-3 control-label">BirthDate:</label>
+         <div class="form-group">
+            {{form.date.label( class="col-lg-3 control-label")}}
             <div class="col-lg-8">
-              <input class="form-control" name="birthdate"type="text" value="{{author[2]}}">
+                {{form.date(class="form-control")}}
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Number of Books:</label>
-            <div class="col-lg-8">
-              <input class="form-control" name="numberofbooks"type="text" value="{{author[3]}}">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Country:</label>
-            <div class="col-lg-8">
-              <input class="form-control" name="country"type="text" value="{{author[4]}}">
-            </div>
-          </div>
-
 </hr>
-
-
-          <div class="form-group">
-
-
-            <input type="hidden" name="save_changes" >
-
-                <button class="button is-danger" action="submit" id="save_changes" name="btn" value="save_changes">Save changes</button>
-
-                <input type="hidden" name="cancel" >
-
-                <button class="button is-danger" action="submit" id="cancel" name="btn" value="cancel">Cancel</button>
-
-
+              <div class="form-group">
+            {{form.country.label( class="col-lg-3 control-label")}}
+            <div class="col-lg-8">
+                {{form.country(class="form-control")}}
+            </div>
           </div>
-
+</hr>
+              <div class="form-group">
+            {{form.numOfBooks.label( class="col-lg-3 control-label")}}
+            <div class="col-lg-8">
+                {{form.numOfBooks(class="form-control")}}
+            </div>
+          </div>
+</hr>
+          <div class="form-group">
+                {{form.submit(class="btn btn-outline-info")}}
+          </div>
     </form>
-
-
+      <form method="POST" class="form-horizontal" role="form" action="/EditAuthor">
+         <div class="form-group">
+             <input type="hidden" name="cancel" >
+             <button class="button is-danger" action="submit" id="cancel" name="btn" value="cancel">Cancel</button>
+         </div>
+    </form>
 </div>
-
-
-    {% endblock content %}
+{% endblock content %}

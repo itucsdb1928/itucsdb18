@@ -7,41 +7,41 @@ import psycopg2 as dbapi2
 INIT_STATEMENTS = [
     """
     
-    CREATE TABLE IF NOT EXISTS Author( 
+  CREATE TABLE IF NOT EXISTS Author( 
                       AuthorID SERIAL PRIMARY KEY , 
-                      name VARCHAR(30), 
-                      surname VARCHAR(30),
-                      birthDate DATE , 
-                      numberOfbooks INTEGER,
-                      country VARCHAR(40)
+                      name VARCHAR(30) NOT NULL,
+                      surname VARCHAR(30) NOT NULL,
+                      birthDate DATE NOT NULL, 
+                      numberOfbooks INTEGER NOT NULL,
+                      country VARCHAR(40) NOT NULL
                      );
     CREATE TABLE IF NOT EXISTS BookComment( 
                       BookCommentID SERIAL PRIMARY KEY ,
-                      UserRating INTEGER,
-                      UserComment VARCHAR(500),
-                      CommentDate DATE,
-                      DislikeNum INTEGER,
-                      LikeNum INTEGER DEFAULT 0
+                      UserRating INTEGER NOT NULL,
+                      UserComment VARCHAR(500) NOT NULL,
+                      CommentDate DATE NOT NULL,
+                      DislikeNum INTEGER NOT NULL,
+                      LikeNum INTEGER DEFAULT 0 NOT NULL
                      );
                      
     CREATE TABLE IF NOT EXISTS Publisher( 
                       PublisherID SERIAL PRIMARY KEY , 
-                      name VARCHAR(40), 
-                      adress VARCHAR(50),
-                      numberOfbooks INTEGER , 
-                      establishmentDate DATE ,
-                      companyName VARCHAR(50)
+                      name VARCHAR(40) NOT NULL, 
+                      adress VARCHAR(50) NOT NULL,
+                      numberOfbooks INTEGER NOT NULL, 
+                      establishmentDate DATE NOT NULL,
+                      companyName VARCHAR(50) NOT NULL
                      );
                      
     CREATE TABLE IF NOT EXISTS Books( 
                       BookID SERIAL PRIMARY KEY , 
-                      Title VARCHAR(20),
-                      PostDate  DATE DEFAULT CURRENT_DATE,
-                      PageNum INTEGER,
+                      Title VARCHAR(20) NOT NULL,
+                      PostDate  DATE DEFAULT CURRENT_DATE NOT NULL,
+                      PageNum INTEGER NOT NULL,
                       PublisherID INTEGER  REFERENCES Publisher (PublisherID) ON DELETE CASCADE, 
                       AuthorID INTEGER  REFERENCES Author (AuthorID) ON DELETE CASCADE,
-                      Content VARCHAR(500),
-                      BookReview INTEGER DEFAULT 0
+                      Content VARCHAR(500) NOT NULL,
+                      BookReview INTEGER DEFAULT 0 NOT NULL
                      );  
                                       
                      
@@ -49,8 +49,8 @@ INIT_STATEMENTS = [
                       UserID SERIAL PRIMARY KEY, 
                       name VARCHAR (50)  NOT NULL, 
                       surname VARCHAR (50)  NOT NULL, 
-                      gender VARCHAR (6) NULL, 
-                      age VARCHAR (3) NULL,
+                      gender VARCHAR (6) NOT NULL, 
+                      age VARCHAR (3) NOT NULL,
                       email VARCHAR (50) UNIQUE NOT NULL,
                       password VARCHAR (100)  NOT NULL,
                       isAdmin INTEGER DEFAULT 0
@@ -59,27 +59,28 @@ INIT_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS UserContent( 
                       UserContentID SERIAL PRIMARY KEY ,
                       UserID INTEGER REFERENCES Users (UserID)ON DELETE CASCADE,
-                      CommentsNum INTEGER,
-                      FavAuthor VARCHAR(20),
-                      FavBook VARCHAR(20),
-                      FavPublisher VARCHAR(20),
-                      LikedCommentNum INTEGER DEFAULT 0
+                      CommentsNum INTEGER NOT NULL,
+                      FavAuthor VARCHAR(20) NOT NULL,
+                      FavBook VARCHAR(20) NOT NULL,
+                      FavPublisher VARCHAR(20) NOT NULL,
+                      LikedCommentNum INTEGER DEFAULT 0 NOT NULL
                      );
-
+                     
     ALTER TABLE BookComment ADD COLUMN UserID INTEGER REFERENCES Users (UserID) ON DELETE CASCADE;
     ALTER TABLE BookComment ADD COLUMN BookID INTEGER REFERENCES Books (BookID) ON DELETE CASCADE;
-    ALTER TABLE BookComment ALTER COLUMN DislikeNum SET DEFAULT 0;      
+    ALTER TABLE BookComment ALTER COLUMN DislikeNum SET DEFAULT 0; 
+    ALTER TABLE BookComment ALTER COLUMN DislikeNum SET NOT NULL;
     ALTER TABLE UserContent ALTER COLUMN CommentsNum SET DEFAULT 0;
-
-    INSERT INTO Users (name,surname, email,password,isAdmin) 
-    VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',1);
-    INSERT INTO Users (name,surname, email,password,isAdmin) 
-    VALUES ('emn','tpz','emn@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',0);
+    ALTER TABLE UserContent ALTER COLUMN CommentsNum SET NOT NULL;
+    
+    INSERT INTO Users (name,surname, email,password,isAdmin,gender,age) 
+    VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',1,'',0);
+    INSERT INTO Users (name,surname, email,password,isAdmin,gender,age) 
+    VALUES ('emn','tpz','emn@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==',0,'Male',21);
    
     INSERT INTO UserContent (UserID,FavAuthor, FavBook,FavPublisher) 
     VALUES (2,'ali', 'olasiliksiz','ugurYayincilik');
 
-    INSERT INTO UserContent (UserID) VALUES (1);
     
 
 

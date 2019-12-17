@@ -1,18 +1,19 @@
 import psycopg2 as dbapi2
-
+import os
 from cyripto import Crypto
 
 
 class Database:
     def __init__(self):
         # This one going to be environment variable in heroku
-        self.url = "postgres://klnslbgroolcmt:6e4c28e765ba63b0f5bb9acaa3403e47e4cff7b7b3b48bb8eee78291f47b711a@ec2-174-129-255-46.compute-1.amazonaws.com:5432/d9ej37pubfqund"
+        self.url = os.getenv("DATABASE_URL")
         self.crt = Crypto()
         self.UserId = 0
         self.book_name = None
         self.book_detail = None
         self.author_details=None
         self.publisher_details=None
+        self.country = None
         self.publishers=self.all_publishers()
         self.authors=self.all_authors()
     
@@ -47,8 +48,6 @@ class Database:
            cursor.close()
            
        return home
-
-
 
     def get_detail_page(self,book_name):
        with dbapi2.connect(self.url) as connection:
@@ -134,6 +133,19 @@ class Database:
             cursor.execute(query)
             cursor.close()
 
+    def add_new_author(self,name,surname, birthdate, numberofbooks, Country):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Author (name,surname,birthdate,numberOfbooks ,country) VALUES ('{}', '{}', '{}', {},'{}');".format(name ,surname, birthdate, numberofbooks, Country)
+            cursor.execute(query)
+            cursor.close()
+
+    def add_new_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Publisher (name,adress,numberOfbooks ,establishmentDate ,companyName ) VALUES ('{}', '{}', {}, '{}','{}');".format(name,adress,numberOfbooks, establishmentdate, companyName)
+            cursor.execute(query)
+            cursor.close()
 
     def Search(self,name):
        with dbapi2.connect(self.url) as connection:
@@ -244,7 +256,7 @@ class Database:
 
             with dbapi2.connect(self.url) as connection:
                 cursor = connection.cursor()
-                query = "INSERT INTO UserContent (userid) VALUES ('%s');" %(userId)
+                query = "INSERT INTO UserContent (userid,FavAuthor,FavBook,FavPublisher) VALUES ('%s','','','');" %(userId)
                 cursor.execute(query)
                 cursor.close()
 

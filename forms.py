@@ -1,20 +1,21 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField,SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms import StringField, PasswordField, SubmitField, BooleanField,SelectField,IntegerField,DateField
+from wtforms.validators import DataRequired, Length, Email, EqualTo,required
 
 
 class RegistrationForm(FlaskForm):
     name = StringField('Name',
-                       validators=[DataRequired()])
+                       validators=[DataRequired(),Length(max=50)])
     surname = StringField('Surname',
-                       validators=[DataRequired()])
+                       validators=[DataRequired(),Length(max=50)])
 
     gender = SelectField('gender', choices=[('Male','Male'), ('Female','Female')], default=2, validators=[DataRequired()])
 
     age = StringField('Age',
-                       validators=[DataRequired(),Length(min=1, max=3)])
+                       validators=[DataRequired(),required(),Length(min=1, max=3)])
+
     email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(), Email(),Length(max=50)])
 
     password = PasswordField('Password', validators=[DataRequired(),Length(min=6,max=9)])
 
@@ -39,5 +40,39 @@ class AddUserContent(FlaskForm):
 
     author = StringField('Favauthor',
                         validators=[DataRequired()])
+
+    submit = SubmitField('submit')
+
+class editPublisher(FlaskForm):
+    name = StringField('Name',
+                       validators=[DataRequired(),Length(max=40)])
+    address = StringField('Address',
+                            validators=[DataRequired()])
+
+    date = DateField('Establishment Date',
+                          validators=[DataRequired(),required()])
+
+    companyName = StringField('Comp. Name',
+                          validators=[DataRequired(),Length(max=50)])
+
+    numOfBooks = IntegerField('Num of Books',
+                         validators=[DataRequired()])
+
+    submit = SubmitField('submit')
+
+class editAuthor(FlaskForm):
+    name = StringField('Name',
+                       validators=[DataRequired(),Length(max=30)])
+    surname = StringField('Surname',
+                            validators=[DataRequired()])
+
+    date = DateField('Date',
+                          validators=[DataRequired(),required()])
+
+    country = StringField('Country',
+                          validators=[DataRequired(),Length(max=40)])
+
+    numOfBooks = IntegerField('Num of books',
+                         validators=[DataRequired(),required()])
 
     submit = SubmitField('submit')
