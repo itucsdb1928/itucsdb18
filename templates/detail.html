@@ -57,7 +57,7 @@
 {% if user == 1 %}
 <form style="text-align: center;" action="/Detail" method="POST">
     <label class="radio-inline">
-        <textarea name="comment" rows="5" cols="150" maxlength="1000">{{details[4]}}</textarea>
+        <textarea name="comment" rows="5" cols="150" maxlength="500">{{details[4]}}</textarea>
     </label>
     <label class="radio-inline">
         <button class="button is-link" action='submit' name="btn" value="updateBtn">Update</button>
