@@ -28,6 +28,10 @@ def homepage():
             return redirect(url_for('detail_page'))
         elif request.form["btn"] == "add_book":
             return redirect(url_for('add_book'))
+        elif request.form["btn"] == "add_author":
+            return redirect(url_for('add_author'))
+        elif request.form["btn"] == "add_publisher":
+            return redirect(url_for('add_publisher'))
     else:
         My_list=db.get_home_page()
     return render_template('home.html',Status =db.UserId,title = "Home Page",titles=My_list,user=db.UserId)
@@ -50,7 +54,43 @@ def add_book():
             return redirect(url_for('homepage'))
 
 
-    return render_template('add_book.html', Status=db.UserId, title="New Book Page",publisher=db.publishers,author=db.authors)
+    return render_template('add_book.html', Status=db.UserId, title="New Book Page",publisher=db.all_publishers(),author=db.all_authors())
+
+@app.route('/Add_Author',methods=['GET','POST'])
+def add_author():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "add_author":
+            name = request.form["name"]
+            surname = request.form["surname"]
+            birthdate = request.form["birthdate"]
+            numberofbooks = request.form["numberofbooks"]
+            country = request.form["country"]
+            db.add_new_author(name,surname, birthdate, numberofbooks, country)
+
+            return redirect(url_for('homepage'))
+
+
+    return render_template('add_author.html', Status=db.UserId, title="New Author Page",country=db.country)
+
+@app.route('/Add_Publisher',methods=['GET','POST'])
+def add_publisher():
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "add_publisher":
+            name = request.form["name"]
+            adress = request.form["adress"]
+            numberOfbooks = request.form["numberofbooks"]
+            establishmentdate = request.form["establismentdate"]
+            companyName = request.form["companyname"]
+            db.add_new_publisher(name,adress,numberOfbooks, establishmentdate, companyName)
+
+            return redirect(url_for('homepage'))
+
+
+    return render_template('add_publisher.html', Status=db.UserId, title="New Publisher Page")
 
 
 @app.route('/SignIn',methods=['GET','POST'])
@@ -228,6 +268,7 @@ def detail_page():
     if request.method == "POST":
         if request.form["btn"] == "ratingBtn" :
             userWiev = request.form
+            print(userWiev)
             today = today.strftime("%m/%d/%Y")
             result = db.insertRate(db.UserId,bookId,userWiev,today)
             if(result):
@@ -246,15 +287,14 @@ def detail_page():
         elif request.form["btn"] == "-1":
             db.updateLike(request.form["custId"],"dislike")
             return redirect(url_for('detail_page'))
-        elif request.form["btn"] == "detailAuthor":
-            db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
-            return redirect(url_for('author_detail_page'))
-        elif request.form["btn"] == "detailPublisher":
-            db.publisher_details=db.show_publisher_detail(request.form["Publisher"])
-            return redirect(url_for('publisher_detail_page'))
-        elif request.form["btn"] == "delete_profile":
-            db.publisher_details=db.delete_comment(bookId)
-            return redirect(url_for('detail_page'))
+        elif request.form["btn"] == "detail_p_a":
+            if request.form['radiobutton']=='author':
+                db.author_details=db.show_author_detail(db.book_detail[0],db.book_detail[1])
+                return redirect(url_for('author_detail_page'))
+            else:
+                db.publisher_details=db.show_publisher_detail(db.book_detail[2])
+                return redirect(url_for('publisher_detail_page'))
+
             
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 
