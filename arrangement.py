@@ -179,10 +179,10 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
-    def edit_user_content(self,fav_author,fav_book,fav_publisher):
+    def edit_user_content(self,form):
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "UPDATE USERCONTENT SET favauthor='{}',favbook='{}',favpublisher='{}'WHERE UserID={};".format(fav_author,fav_book,fav_publisher,self.UserId)
+           query = "UPDATE USERCONTENT SET favauthor='{}',favbook='{}',favpublisher='{}'WHERE UserID={};".format(form.author.data,form.book.data,form.publisher.data,self.UserId)
            cursor.execute(query)
            cursor.close()
 

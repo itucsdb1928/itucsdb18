@@ -40,4 +40,4 @@ class AddUserContent(FlaskForm):
     author = StringField('Favauthor',
                         validators=[DataRequired()])
 
-    submit = SubmitField('Add Content')
+    submit = SubmitField('submit')

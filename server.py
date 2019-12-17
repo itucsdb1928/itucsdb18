@@ -168,30 +168,31 @@ def edit_profile_page():
 def edit_user_content():
     profile = db.show_profile(db.UserId)
     print(profile)
+    form = AddUserContent()
     if request.method == "POST":
-        print("------------------>",request.form["btn"])
-        if request.form["btn"] == "delete_profile":
+        if form.validate_on_submit():
+            print("buradayımmmmm------------------------")
+            print("Edit part---->",form.author.data)
+            db.edit_user_content(form)
+            return redirect(url_for('profile_page'))
+        elif request.form["btn"] == "delete":
             db.delete_user_content()
-            print("akiyi")
-        elif request.form["btn"] == "save_content" :
+            return redirect(url_for('profile_page'))
+        elif request.form["btn"] == "cancel" :
             print("-------->print:",request.form)
-            fav_author = request.form["favbook"]
-            fav_book = request.form["favauthor"]
-            fav_publisher = request.form["favpublisher"]
-            db.edit_user_content(fav_author,fav_book,fav_publisher)
+            return redirect(url_for('profile_page'))
 
-        return redirect(url_for('profile_page'))
-    return render_template('edit_user_content.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
+    return render_template('edit_user_content.html', Status=db.UserId, title="Edit Profile Page", profile=profile,form=form)
 
 @app.route('/AddingUserContent',methods=['GET','POST'])
 def add_user_content():
     form = AddUserContent()
-    #if request.method == "POST":
-    if form.validate_on_submit():
-        db.NewContent(form)
-        return redirect(url_for('profile_page'))
-    #    elif request.form["btn"] == "cancel":
-    #        return redirect(url_for('profile_page'))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            db.NewContent(form)
+            return redirect(url_for('profile_page'))
+        elif request.form["btn"] == "cancel":
+            return redirect(url_for('profile_page'))
     return render_template('add_content.html', Status=db.UserId, title="Add Content",form=form)
 
 @app.route('/EditAuthor',methods=['GET','POST'])
