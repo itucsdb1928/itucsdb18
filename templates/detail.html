@@ -180,6 +180,12 @@
                             <i class="fa fa-thumbs-o-down"></i>
                             {{ i[5] }} <input type="submit" class="qty2" name="btn" readonly="readonly" value="-1" />
                         </a>
+                        {% if user == i[6] %}
+                        <a>
+                            <input type="hidden" name="delete_profile">
+                            <button class="button is-danger" action="submit" id="delete_profile" name="btn" value="delete_profile">Delete Commnet</button>
+                        </a>
+                        {% endif %}
                     </form>
                     {% else %}
                     <a class="like">

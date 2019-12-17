@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
     surname = StringField('Surname',
                        validators=[DataRequired()])
 
-    gender = SelectField('gender', choices=[('Female','Male'), ('Female','Female')], default=2, validators=[DataRequired()])
+    gender = SelectField('gender', choices=[('Male','Male'), ('Female','Female')], default=2, validators=[DataRequired()])
 
     age = StringField('Age',
                        validators=[DataRequired(),Length(min=1, max=3)])
@@ -31,3 +31,13 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+class AddUserContent(FlaskForm):
+    book = StringField('FavBook',
+                       validators=[DataRequired()])
+    publisher = StringField('FavPublisher',
+                       validators=[DataRequired()])
+
+    author = StringField('Favauthor',
+                        validators=[DataRequired()])
+
+    submit = SubmitField('Add Content')

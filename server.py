@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template,flash,url_for,current_app,request
-from forms import RegistrationForm,LoginForm
+from forms import RegistrationForm,LoginForm,AddUserContent
 
 from datetime import datetime
 from urllib.parse import urlparse
@@ -78,20 +78,26 @@ def sign_up_page():
 
     return render_template('register.html', Status=db.UserId, title="SıgnUp Page", form=form)
 
+
+
+
 @app.route('/Profile',methods=['GET','POST'])
 def profile_page():
+    addNewContent = 0
     profile=db.show_profile(db.UserId)
-    print("----->inforfile :",profile)
+    if (len(profile) == 5):
+        addNewContent = 1
+    print("------new cont:",addNewContent)
     if request.method == "POST":
         if request.form["btn"] == "edit_profile" :
             return redirect(url_for('edit_profile_page'))
+        elif request.form["btn"] == "edit_userContent":
+            return redirect(url_for('edit_user_content'))
+        if request.form["btn"] == "add_content":
+            return redirect(url_for('add_user_content'))
 
-    return render_template('profile.html', Status=db.UserId, title = "Profile Page", profile=profile)
+    return render_template('profile.html', Status=db.UserId, title = "Profile Page", profile=profile,addContent = addNewContent)
 
-
-
-
-    return render_template('detail_publisher.html', Status=db.UserId, title = "Publisher Detail Page")
 
 @app.route('/EditProfile',methods=['GET','POST'])
 def edit_profile_page():
@@ -116,11 +122,37 @@ def edit_profile_page():
             db.edit_profile(name,surname,age,gender,email,db.UserId)
             return redirect(url_for('profile_page'))
 
-
-
-
     return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
 
+@app.route('/EditUserContent',methods=['GET','POST'])
+def edit_user_content():
+    profile = db.show_profile(db.UserId)
+    print(profile)
+    if request.method == "POST":
+        print("------------------>",request.form["btn"])
+        if request.form["btn"] == "delete_profile":
+            db.delete_user_content()
+            print("akiyi")
+        elif request.form["btn"] == "save_content" :
+            print("-------->print:",request.form)
+            fav_author = request.form["favbook"]
+            fav_book = request.form["favauthor"]
+            fav_publisher = request.form["favpublisher"]
+            db.edit_user_content(fav_author,fav_book,fav_publisher)
+
+        return redirect(url_for('profile_page'))
+    return render_template('edit_user_content.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
+
+@app.route('/AddingUserContent',methods=['GET','POST'])
+def add_user_content():
+    form = AddUserContent()
+    #if request.method == "POST":
+    if form.validate_on_submit():
+        db.NewContent(form)
+        return redirect(url_for('profile_page'))
+    #    elif request.form["btn"] == "cancel":
+    #        return redirect(url_for('profile_page'))
+    return render_template('add_content.html', Status=db.UserId, title="Add Content",form=form)
 
 @app.route('/EditAuthor',methods=['GET','POST'])
 def edit_author_page():
@@ -190,7 +222,6 @@ def detail_page():
     detailStat = db.UserId
     commentCheck = db.checkUser(db.UserId,bookId)
 
-
     if(commentCheck == False):
         detailStat = -1
 
@@ -221,6 +252,9 @@ def detail_page():
         elif request.form["btn"] == "detailPublisher":
             db.publisher_details=db.show_publisher_detail(request.form["Publisher"])
             return redirect(url_for('publisher_detail_page'))
+        elif request.form["btn"] == "delete_profile":
+            db.publisher_details=db.delete_comment(bookId)
+            return redirect(url_for('detail_page'))
             
     return render_template('detail.html',Status=detailStat,user=db.UserId,title = " %s Detail Page"%(db.book_name),details=db.book_detail,
                            name=db.book_name,rateInfo = bookRateInfo,today=today) 

@@ -6,7 +6,7 @@ from cyripto import Crypto
 class Database:
     def __init__(self):
         # This one going to be environment variable in heroku
-        self.url = "postgres://iedbwmwpyqzhkn:03e3f46bbea9aa0ece8e4e0f02873d2406203138589f1e51f5a42df6458e0cf5@ec2-107-22-234-103.compute-1.amazonaws.com:5432/d8g4sg1e98t5p7"
+        self.url = "postgres://klnslbgroolcmt:6e4c28e765ba63b0f5bb9acaa3403e47e4cff7b7b3b48bb8eee78291f47b711a@ec2-174-129-255-46.compute-1.amazonaws.com:5432/d9ej37pubfqund"
         self.crt = Crypto()
         self.UserId = 0
         self.book_name = None
@@ -150,9 +150,15 @@ class Database:
            cursor = connection.cursor()
            query = "SELECT users.name,users.surname,users.gender,users.age,users.email,usercontent.commentsnum,usercontent.favauthor,usercontent.favbook,usercontent.favpublisher,usercontent.likedcommentnum FROM Users,usercontent WHERE Users.UserID=usercontent.userid and Users.UserID={}".format(UserId)
            cursor.execute(query)
-           profile = cursor.fetchall()
+           profile = cursor.fetchone()
            cursor.close()
-
+        if (profile is None):
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "SELECT users.name,users.surname,users.gender,users.age,users.email FROM Users WHERE UserID={}".format(UserId)
+                cursor.execute(query)
+                profile = cursor.fetchone()
+                cursor.close()
         return profile
 
     def edit_profile(self,name,surname, age, gender, email, Userid):
@@ -173,6 +179,27 @@ class Database:
            cursor.execute(query)
            cursor.close()
 
+    def edit_user_content(self,fav_author,fav_book,fav_publisher):
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "UPDATE USERCONTENT SET favauthor='{}',favbook='{}',favpublisher='{}'WHERE UserID={};".format(fav_author,fav_book,fav_publisher,self.UserId)
+           cursor.execute(query)
+           cursor.close()
+
+    def delete_user_content(self):
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "DELETE FROM UserContent WHERE UserID={};".format(self.UserId)
+           cursor.execute(query)
+           cursor.close()
+
+    def NewContent(self,form):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO UserContent (FavAuthor,FavBook,FavPublisher,UserID) VALUES ('%s','%s','%s',%d);" % (
+            form.book.data, form.publisher.data, form.author.data,self.UserId)
+            cursor.execute(query)
+            cursor.close()
 
     def checkLogin(self,email,password):
        UserID = 0
@@ -307,5 +334,12 @@ class Database:
                 query = "UPDATE BookComment SET LikeNum = LikeNum+1 WHERE UserID=%s"%(userId)
             else:
                 query = "UPDATE BookComment SET DislikeNum = DislikeNum+1 WHERE UserID=%s"%(userId)
+            cursor.execute(query)
+            cursor.close()
+
+    def delete_comment(self,bookId):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM bookcomment WHERE userid={} and bookid={};".format(self.UserId,bookId)
             cursor.execute(query)
             cursor.close()
