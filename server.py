@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template,flash,url_for,current_app,request
-from forms import RegistrationForm,LoginForm,AddUserContent,editPublisher,editAuthor
+from forms import RegistrationForm,LoginForm,AddUserContent,editPublisher,editAuthor,editProfile
 
 from datetime import datetime
 from urllib.parse import urlparse
@@ -144,27 +144,19 @@ def profile_page():
 def edit_profile_page():
     profile = db.show_profile(db.UserId)
     print(profile)
-
+    form = editProfile()
     if request.method == "POST":
-
+        if form.validate_on_submit():
+            db.edit_profile(form.name.data, form.surname.data, form.age.data, form.gender.data, db.UserId)
+            return redirect(url_for('profile_page'))
         if request.form["btn"] == "cancel" :
             return redirect(url_for('profile_page'))
-        elif request.form["btn"] == "delete_profile":
+        elif request.form["btn"] == "delete":
             db.delete_profile(db.UserId)
             db.UserId = 0
             return redirect(url_for('sign_up_page'))
-            pass
 
-        elif request.form["btn"] == "save_changes" :
-            name = request.form["name"]
-            surname = request.form["surname"]
-            gender = request.form["gender"]
-            age = request.form["age"]
-            email = request.form["email"]
-            db.edit_profile(name,surname,age,gender,email,db.UserId)
-            return redirect(url_for('profile_page'))
-
-    return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile)
+    return render_template('edit_profile.html', Status=db.UserId, title="Edit Profile Page", profile=profile,form=form)
 
 @app.route('/EditUserContent',methods=['GET','POST'])
 def edit_user_content():

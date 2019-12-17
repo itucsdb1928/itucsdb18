@@ -173,10 +173,10 @@ class Database:
                 cursor.close()
         return profile
 
-    def edit_profile(self,name,surname, age, gender, email, Userid):
+    def edit_profile(self,name,surname, age, gender, Userid):
         with dbapi2.connect(self.url) as connection:
            cursor = connection.cursor()
-           query = "UPDATE Users SET name='{}',surname='{}',age={},gender='{}',email='{}'WHERE UserID={};".format(name, surname, age, gender, email, Userid)
+           query = "UPDATE Users SET name='{}',surname='{}',age={},gender='{}' WHERE UserID={};".format(name, surname, age, gender, Userid)
            cursor.execute(query)
            cursor.close()
 

@@ -25,6 +25,21 @@ class RegistrationForm(FlaskForm):
 
     submit = SubmitField('Sign Up')
 
+class editProfile(FlaskForm):
+    name = StringField('Name',
+                       validators=[DataRequired(),Length(max=50)])
+    surname = StringField('Surname',
+                       validators=[DataRequired(),Length(max=50)])
+
+    gender = SelectField('gender', choices=[('Male','Male'), ('Female','Female')], default=2, validators=[DataRequired()])
+
+    age = StringField('Age',
+                       validators=[DataRequired(),required(),Length(min=1, max=3)])
+
+
+
+    submit = SubmitField('Edit')
+
 class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
