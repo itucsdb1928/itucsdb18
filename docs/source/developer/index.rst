@@ -1,31 +1,28 @@
-Developer Guide
-===============
+Welcome to itucsdb28's  documentation!
+======================================
 
-Database Design
----------------
+WOB's Database Design
+---------------------
 
-**explain the database design of your project**
 
-**include the E/R diagram(s)**
+Our Website's background consists of 6 main tables.
+We designed the tables for Users which easily see books with deep details,
+see publishers and authors information, add comments to the books, vote on books,
+register to the website and partable profile information that changeable and deletable.
+While providing these features, we have linked the tables in an effective and logical framework.
+Structure (E/R Diagram) shown below.
 
-Code
-----
 
-**explain the technical structure of your code**
+..  figure:: pictures_developer/tables.png
+    :scale: 100 %
+    :alt: map to buried treasure
 
-**to include a code listing, use the following example**::
 
-   .. code-block:: python
 
-      class Foo:
 
-         def __init__(self, x):
-            self.x = x
 
-.. toctree::
 
-   member1
-   member2
-   member3
-   member4
-   member5
+
+
+
+
