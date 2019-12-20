@@ -1,17 +1,20 @@
 Welcome to itucsdbNN's documentation!
 =====================================
 
-:Team: Team Name
+:Team: WOB
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Mehmet Ali Han Tutuk
+   * Muhammed Emin Topuz
 
-**project description goes here (a few paragraphs)**
+
+Our project is to design a website where the information of the books has detailed information,
+where users can easily become members and review the books, give them points and comment.
+In our site admin can add and delete new books authors and publishers while users can only access
+information about them. At the same time, users can add their favorite books and publishers to their profiles,
+and edit and delete their profiles. Our site can be considered as the IMDB of books.
+
 
 Contents:
 
