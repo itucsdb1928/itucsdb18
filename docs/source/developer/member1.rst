@@ -107,7 +107,7 @@ Insert new book to the database:
             cursor.close()
 
 
-Search book fuction:
+Search book function:
 
 .. code-block::
 
@@ -334,20 +334,6 @@ Read,create,delete and udate author functions:
             cursor.close()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Publisher Table
 ---------------
 
@@ -368,3 +354,95 @@ PublisherID  name       adress            numberOfbooks  establishmentDate  comp
 1            Alpha      Main street       145            06/11/2001         Mono INC.
 2            Betha      Temproray street  258            03/24/1988         PUDY INC.
 ============ =========  ================  =============  =================  ===========
+
+I implemented the 4 main database standardization skills on the tables such as Create, Read, Update and Delete.
+
+I showed the publisher details in the publisher details page which is accessed with the button on the detail page.
+On this page, every user can see all attributes of the publisher but only admin see the delete publisher button
+which deletes all publisher information include it's references books.
+
+
+Publisher Detail Page, Add Publisher Page and Edit Publisher Page:
+
+.. code-block::
+
+    @app.route('/Publisher_Profile',methods=['GET','POST'])
+    def publisher_detail_page():
+        if request.method == "POST":
+            if request.form["btn"] == "update_publisher":
+                return redirect(url_for("edit_publisher_page"))
+        return render_template('detail_publisher.html',Status =db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId)
+
+
+    @app.route('/EditPublisher',methods=['GET','POST'])
+    def edit_publisher_page():
+        print(db.publisher_details[4])
+        form = editPublisher()
+        if request.method == "POST":
+            if form.validate_on_submit():
+                db.edit_publisher(form.name.data, form.address.data, form.numOfBooks.data, form.date.data, form.companyName.data, db.publisher_details[4])
+                return redirect(url_for('homepage'))
+            elif request.form["btn"] == "cancel":
+                return redirect(url_for('publisher_detail_page'))
+            elif request.form["btn"] == "delete_publisher":
+                db.delete_publisher(db.publisher_details[4])
+                return redirect(url_for('homepage'))
+
+        return render_template('edit_publisher.html', Status=db.UserId, title="Edit Publisher Page",publisher=db.publisher_details, name=db.book_detail[2],user=db.UserId,form=form)
+
+    @app.route('/Add_Publisher',methods=['GET','POST'])
+    def add_publisher():
+        if request.method == "POST":
+            if request.form["btn"] == "cancel":
+                return redirect(url_for('homepage'))
+            elif request.form["btn"] == "add_publisher":
+                name = request.form["name"]
+                adress = request.form["adress"]
+                numberOfbooks = request.form["numberofbooks"]
+                establishmentdate = request.form["establismentdate"]
+                companyName = request.form["companyname"]
+                db.add_new_publisher(name,adress,numberOfbooks, establishmentdate, companyName)
+
+                return redirect(url_for('homepage'))
+
+
+        return render_template('add_publisher.html', Status=db.UserId, title="New Publisher Page")
+
+
+Read,create,delete and udate publisher functions:
+
+.. code-block::
+
+     def show_publisher_detail(self,publisherName):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Publisher.adress,Publisher.numberOfbooks,Publisher.establishmentDate,Publisher.companyName,Publisher.publisherid FROM Publisher,Books WHERE Publisher.publisherid=Books.publisherid AND Publisher.name='%s' ;" % (publisherName)
+            cursor.execute(query)
+            publisherDetails=cursor.fetchone()
+            cursor.close()
+            return publisherDetails
+
+    def edit_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName,publisherid):
+         with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "UPDATE Publisher SET name='{}',adress='{}',numberofbooks={},establishmentdate='{}',companyname='{}' WHERE PublisherID={};".format(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+           cursor.execute(query)
+           cursor.close()
+
+    def delete_publisher(self,publisherid):
+
+         with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "DELETE FROM Publisher WHERE PublisherID={};".format(publisherid)
+           cursor.execute(query)
+           cursor.close()
+
+    def add_new_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Publisher (name,adress,numberOfbooks ,establishmentDate ,companyName ) VALUES ('{}', '{}', {}, '{}','{}');".format(name,adress,numberOfbooks, establishmentdate, companyName)
+            cursor.execute(query)
+            cursor.close()
+
+
