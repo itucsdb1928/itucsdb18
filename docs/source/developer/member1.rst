@@ -242,6 +242,112 @@ AuthorID  name       surname       birthDate   numberOfbooks  country
 2         John       Purcell       03/16/1954  25             Scotland
 ========  =========  ============  ==========  =============  =========
 
+I implemented the 4 main database standardization skills on the tables such as Create, Read, Update and Delete.
+
+I showed the author details in the author details page which is accessed with the button on the detail page.
+In this page, every user can see all attributes of the authorbut only admin see the edit author button which
+update contents of author table and delete author button which deletes all author information include it's references books.
+
+Author Detail Page,Add author page and edit author page:
+
+.. code-block::
+
+    @app.route('/Author_Profile',methods=['GET','POST'])
+    def author_detail_page():
+    nameAuthor=db.book_detail[0]
+    surnameAuthor=db.book_detail[1]
+    if request.method == "POST":
+        if request.form["btn"] == "update_author":
+            return redirect(url_for("edit_author_page"))
+
+
+    return render_template('detail_author.html',Status =db.UserId, title="Author Detail Page",author=db.author_details, name=nameAuthor,surname=surnameAuthor,user=db.UserId)
+
+    @app.route('/EditAuthor',methods=['GET','POST'])
+    def edit_author_page():
+    form = editAuthor()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            db.edit_author(form.name.data, form.surname.data,form.date.data,form.numOfBooks.data,form.country.data, db.author_details[5])
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "cancel":
+            return redirect(url_for('author_detail_page'))
+        elif request.form["btn"] == "delete_author":
+            db.delete_author(db.author_details[5])
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_author.html', Status=db.UserId, title="Edit Author Page",author=db.author_details,user=db.UserId,form=form)
+
+    @app.route('/Add_Author',methods=['GET','POST'])
+    def add_author():
+    Country = "Universe"
+    if request.method == "POST":
+        if request.form["btn"] == "cancel":
+            return redirect(url_for('homepage'))
+        elif request.form["btn"] == "add_author":
+            name = request.form["name"]
+            surname = request.form["surname"]
+            birthdate = request.form["birthdate"]
+            numberofbooks = request.form["numberofbooks"]
+            Country = request.form["country"]
+            db.add_new_author(name,surname, birthdate, numberofbooks, Country)
+
+            return redirect(url_for('homepage'))
+
+
+    return render_template('add_author.html', Status=db.UserId, title="New Author Page",country=Country)
+
+Read,create,delete and udate author functions:
+
+.. code-block::
+
+    def show_author_detail(self,authorName,authorSurname):
+
+        with dbapi2.connect(self.url) as connection:
+             cursor = connection.cursor()
+             query = "SELECT DISTINCT Author.name,Author.surname,Author.Birthdate,Author.Numberofbooks,Author.Country,Author.Authorid FROM Author,Books WHERE Author.Authorid=Books.authorid AND Author.name='%s' AND Author.Surname='%s';" % (authorName,authorSurname)
+             cursor.execute(query)
+             authorDetails=cursor.fetchone()
+             cursor.close()
+             return authorDetails
+
+    def edit_author(self,name,surname, birthdate, numberofbooks, country,authorid):
+         with dbapi2.connect(self.url) as connection:
+             cursor = connection.cursor()
+             query = "UPDATE Author SET name='{}',surname='{}',birthdate='{}',numberofbooks={},country='{}' WHERE authorid={};".format(name,surname, birthdate, numberofbooks, country,authorid)
+             cursor.execute(query)
+             cursor.close()
+
+    def delete_author(self, authorid):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM Author WHERE AuthorID={};".format(authorid)
+            cursor.execute(query)
+            cursor.close()
+
+    def add_new_author(self,name,surname, birthdate, numberofbooks, Country):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Author (name,surname,birthdate,numberOfbooks ,country) VALUES ('{}', '{}', '{}', {},'{}');".format(name ,surname, birthdate, numberofbooks, Country)
+            cursor.execute(query)
+            cursor.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Publisher Table
 ---------------
 
