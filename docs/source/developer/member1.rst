@@ -391,6 +391,28 @@ Read,create,delete and udate author functions:
             cursor.close()
 
 
+I checked the inputs which is filled by users for validation to save our program and database:
+
+.. code-block::
+
+    class editAuthor(FlaskForm):
+        name = StringField('Name',
+                           validators=[DataRequired(),Length(max=30)])
+        surname = StringField('Surname',
+                                validators=[DataRequired()])
+
+        date = DateField('Date',
+                              validators=[DataRequired(),required()])
+
+        country = StringField('Country',
+                              validators=[DataRequired(),Length(max=40)])
+
+        numOfBooks = IntegerField('Num of books',
+                             validators=[DataRequired(),required()])
+
+        submit = SubmitField('submit')
+
+
 Publisher Table
 ---------------
 
@@ -561,19 +583,3 @@ I checked the inputs which is filled by users for validation to save our program
 
         submit = SubmitField('submit')
 
-    class editAuthor(FlaskForm):
-        name = StringField('Name',
-                           validators=[DataRequired(),Length(max=30)])
-        surname = StringField('Surname',
-                                validators=[DataRequired()])
-
-        date = DateField('Date',
-                              validators=[DataRequired(),required()])
-
-        country = StringField('Country',
-                              validators=[DataRequired(),Length(max=40)])
-
-        numOfBooks = IntegerField('Num of books',
-                             validators=[DataRequired(),required()])
-
-        submit = SubmitField('submit')
