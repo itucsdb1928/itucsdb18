@@ -13,13 +13,13 @@ the content of the above bar will change if the operation is successful.
 
 Before the enter the web site with email and password.
 
-    .. figure:: pictures_user/Session2.png
+    .. figure:: pictures_user/U_Session2.png
       :scale: 10 %
       :alt: map to buried treasure
 
 After the enter the web site with email and password.
 
-    .. figure:: pictures_user/Session.png
+    .. figure:: pictures_user/U_Session.png
       :scale: 10 %
       :alt: map to buried treasure
 
