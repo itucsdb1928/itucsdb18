@@ -23,7 +23,7 @@ Detail Page:
       :scale: 50 %
       :alt: map to buried treasure
 
-Detail Page:
+
 
    .. figure:: pictures_user/U_detail2.png
       :scale: 50 %
@@ -32,7 +32,7 @@ Detail Page:
 
 Profile Page:
 
-   .. figure:: pictures_user/U_Profile.png
+   .. figure:: pictures_user/U_profile.png
       :scale: 50 %
       :alt: map to buried treasure
 
