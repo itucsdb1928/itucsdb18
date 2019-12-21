@@ -403,34 +403,6 @@ Delete profile function.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 BookComment Table
 -----------------
 
@@ -455,6 +427,104 @@ BookCommentID   UserRating UserComment             CommentDate  DislikeNum LikeN
 1               5           Very good book!        08/25/2018   4          128      5        6
 2               3           Almost perfect!        09/11/2017   14         85       6        14
 =============   ========== ======================  ===========  ========== =======  ======  ======
+
+
+I create the comment table for books to Users see the book's votes and comments and they have an idea
+of book that never knows or to inform other users about that book.
+
+In Detail page users can read the comments, add a new comment tot the books and rate the books.
+
+.. code-block::
+
+    def getReview(self,bookId):
+        info = None
+        sum = 0
+        avg = 0
+        rates = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]}
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate,BookComment.LikeNum,BookComment.DislikeNum,users.UserId from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  %d" %(bookId)
+           cursor.execute(query)
+           info = cursor.fetchall()
+           cursor.close()
+
+        #print("date ex: %s"%(d))
+        for i in info:
+          sum += i[0]
+          rates[i[0]][0] += 1
+
+        voteNum = len(info)
+        for i in range(1,6):
+            if(voteNum):
+                rates[i][1] = int((rates[i][0] / voteNum)*100)
+            else:
+                rates[i][1] = 0
+
+        if voteNum: avg = (sum / voteNum)
+
+        return (avg,int(avg),voteNum,rates,info)
+
+    def insertRate(self,userId,bookId,form,today):
+        info = None
+
+        with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "UPDATE UserContent SET CommentsNum = CommentsNum+1 WHERE UserID=%s"%(userId)
+                cursor.execute(query)
+                cursor.close()
+
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (%s, %s ,%s,'%s','%s');" %(userId,bookId,form['optradio'],form['comment'],today)
+           cursor.execute(query)
+           cursor.close()
+           return True
+
+        return False
+
+The users also delete their comments:
+
+.. code-block::
+
+     def delete_comment(self,bookId):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM bookcomment WHERE userid={} and bookid={};".format(self.UserId,bookId)
+            cursor.execute(query)
+            cursor.close()
+
+I added to the comments like and dislike number features to rated the comments by other users.
+
+.. code-block::
+
+     def updateLike(self,userId,type):
+         if(type == "like"):
+             with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "UPDATE UserContent SET LikedCommentNum = LikedCommentNum+1 WHERE UserID=%s"%(userId)
+                cursor.execute(query)
+                cursor.close()
+
+         with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            if(type == "like"):
+                query = "UPDATE BookComment SET LikeNum = LikeNum+1 WHERE UserID=%s"%(userId)
+            else:
+                query = "UPDATE BookComment SET DislikeNum = DislikeNum+1 WHERE UserID=%s"%(userId)
+            cursor.execute(query)
+            cursor.close()
+
+For session only users can add, delete and rate the books. The non-registered users can only see the comments.
+
+.. code-block::
+
+     {% if Status > 0 %}
+        <label class="radio-inline" name="btn" value="ratingBtn">
+            <button class="button is-link" action='submit' name="btn" value="ratingBtn">Share</button>
+        </label>
+     {% endif %}
+
+
 
 UserContent Table
 -----------------
