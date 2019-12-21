@@ -549,3 +549,87 @@ UserContentID   UserID  CommentsNum   FavAuthor     FavBook    FavPublisher  Lik
 1               5       14            ALex Nash     Limitless  Betha         74
 2               124     25            Tara Bagvell  The End    Triplex       24
 =============   ======  ============  ============  ========== ============  ===============
+
+I create the user content table for users to add favorite authors, favorite publisher and favorite
+books on their own profile page. They can also delete their contents, edit their contents and see their
+comments that how many user liked that comment.
+
+.. code-block::
+
+    @app.route('/AddingUserContent',methods=['GET','POST'])
+    def add_user_content():
+        form = AddUserContent()
+        if request.method == "POST":
+            if form.validate_on_submit():
+                db.NewContent(form)
+                return redirect(url_for('profile_page'))
+            elif request.form["btn"] == "cancel":
+                return redirect(url_for('profile_page'))
+        return render_template('add_content.html', Status=db.UserId, title="Add Content",form=form)
+
+    @app.route('/EditUserContent',methods=['GET','POST'])
+    def edit_user_content():
+        profile = db.show_profile(db.UserId)
+        print(profile)
+        form = AddUserContent()
+        if request.method == "POST":
+            if form.validate_on_submit():
+                print("buradayımmmmm------------------------")
+                print("Edit part---->",form.author.data)
+                db.edit_user_content(form)
+                return redirect(url_for('profile_page'))
+            elif request.form["btn"] == "delete":
+                db.delete_user_content()
+                return redirect(url_for('profile_page'))
+            elif request.form["btn"] == "cancel" :
+                print("-------->print:",request.form)
+                return redirect(url_for('profile_page'))
+
+        return render_template('edit_user_content.html', Status=db.UserId, title="Edit Profile Page", profile=profile,form=form)
+
+Add,edit and delete functions:
+
+.. code-block::
+
+    def NewContent(self,form):
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO UserContent (FavAuthor,FavBook,FavPublisher,UserID) VALUES ('%s','%s','%s',%d);" % (
+            form.book.data, form.publisher.data, form.author.data,self.UserId)
+            cursor.execute(query)
+            cursor.close()
+
+    def edit_user_content(self,form):
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "UPDATE USERCONTENT SET favauthor='{}',favbook='{}',favpublisher='{}'WHERE UserID={};".format(form.author.data,form.book.data,form.publisher.data,self.UserId)
+           cursor.execute(query)
+           cursor.close()
+
+    def delete_user_content(self):
+        with dbapi2.connect(self.url) as connection:
+           cursor = connection.cursor()
+           query = "DELETE FROM UserContent WHERE UserID={};".format(self.UserId)
+           cursor.execute(query)
+           cursor.close()
+
+
+For validation i checked the contents inputs.
+
+.. code-block::
+
+    class AddUserContent(FlaskForm):
+        book = StringField('FavBook',
+                           validators=[DataRequired()])
+        publisher = StringField('FavPublisher',
+                           validators=[DataRequired()])
+
+        author = StringField('Favauthor',
+                            validators=[DataRequired()])
+
+        submit = SubmitField('submit')
+
+
+
+
+
