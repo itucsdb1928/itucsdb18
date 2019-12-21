@@ -10,7 +10,7 @@ by other users. Hw/she can log out of the site in a collateral way and complete 
 login is made by admin, it can change the contents of books, add new books, authors and publishers to the system and
 edit them and delete them if they wish.
 
-**to add a picture, use the following example**::
+
 
    .. figure:: pictures_user/U_Homepage.png
       :scale: 50 %
