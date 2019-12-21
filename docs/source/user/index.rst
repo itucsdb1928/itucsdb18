@@ -12,7 +12,7 @@ edit them and delete them if they wish.
 
 **to add a picture, use the following example**::
 
-   .. figure:: pisture_user/U_Homepage.png
+   .. figure:: picture_user/U_Homepage.png
       :scale: 50 %
       :alt: map to buried treasure
 
