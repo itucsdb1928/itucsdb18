@@ -14,13 +14,13 @@ the content of the above bar will change if the operation is successful.
 Before the enter the web site with email and password.
 
     .. figure:: pictures_user/Session2.png
-      :scale: 50 %
+      :scale: 10 %
       :alt: map to buried treasure
 
 After the enter the web site with email and password.
 
     .. figure:: pictures_user/Session.png
-      :scale: 50 %
+      :scale: 10 %
       :alt: map to buried treasure
 
 If the login is done by admin, it will see an extra 3 buttons on the main page, including add books, add authors
