@@ -12,15 +12,7 @@ edit them and delete them if they wish.
 
 **to add a picture, use the following example**::
 
-   .. figure:: picture.png
+   .. figure:: pisture_user/U_Homepage.png
       :scale: 50 %
       :alt: map to buried treasure
 
-      This is the caption of the figure (a simple paragraph).
-
-.. toctree::
-
-   *Mehmet Ali Han Tutuk
-   *Muhammed Emin Topuz
-
-   
