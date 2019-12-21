@@ -106,6 +106,63 @@ Insert new book to the database:
             cursor.execute(query)
             cursor.close()
 
+In this page i provide the admin all publishers and author to protect the website which is added the author or publisher
+that is not available in the database.
+
+.. code-block::
+
+        def all_publishers(self):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Publisher.name,Publisher.PublisherID FROM Publisher;"
+            cursor.execute(query)
+            publishers = cursor.fetchall()
+            cursor.close()
+
+        return publishers
+
+    def all_authors(self):
+
+        with dbapi2.connect(self.url) as connection:
+            cursor = connection.cursor()
+            query = "SELECT DISTINCT Author.name,Author.surname,Author.AuthorID FROM Author;"
+            cursor.execute(query)
+            authors = cursor.fetchall()
+            cursor.close()
+
+        return authors
+
+In HTML file i used the select and option tag.
+
+.. code-block::
+
+               <select id="user_time_zone" name="Authorid"class="form-control">
+    {% for i in author %}
+                  <option value="{{i[2] }} ">{{i[0] }} {{i[1]}}</option>
+        {% endfor %}
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+    <div class="form-group">
+            <label class="col-lg-3 control-label">Publisher:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+
+
+                <select id="user_time_zone" name="Publisherid"class="form-control">
+    {% for i in publisher %}
+                  <option value="{{i[1]}}">{{i[0]}}</option>
+        {% endfor %}
+                </select>
+
+              </div>
+            </div>
+          </div>
+
 
 Search book function:
 
