@@ -369,7 +369,7 @@ Editing profile by using Update function in postgresql:
 
 For validation i checked the inputs of user in edit profile page.
 
-    .. code-block::
+.. code-block::
 
     class editProfile(FlaskForm):
         name = StringField('Name',
