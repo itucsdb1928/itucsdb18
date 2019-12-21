@@ -446,3 +446,77 @@ Read,create,delete and udate publisher functions:
             cursor.close()
 
 
+I implemented the sessioning in HTML file shown below:
+
+I send  Userid information from server.py to the Html files for show hidden buttons which is seen by only admin.
+
+.. code-block::
+
+    {% if user == 1 %}
+
+    <form action="/Home" method="POST">
+    <div class="form-group">
+
+
+                <input type="hidden" name="add_book" >
+
+                <button class="button is-danger" action="submit" id="add_book" name="btn" value="add_book">Add New Book</button>
+
+          </div>
+    <div class="form-group">
+
+
+                <input type="hidden" name="add_author" >
+
+                <button class="button is-danger" action="submit" id="add_author" name="btn" value="add_author">Add New Author</button>
+
+          </div>
+    <div class="form-group">
+
+
+                <input type="hidden" name="add_publisher" >
+
+                <button class="button is-danger" action="submit" id="add_publisher" name="btn" value="add_publisher">Add New Publisher</button>
+
+          </div>
+    </form>
+    {% endif %}
+
+
+I checked the inputs which is filled by users for validation to save our program and database:
+
+.. code-block::
+
+    class editPublisher(FlaskForm):
+        name = StringField('Name',
+                           validators=[DataRequired(),Length(max=40)])
+        address = StringField('Address',
+                                validators=[DataRequired()])
+
+        date = DateField('Establishment Date',
+                              validators=[DataRequired(),required()])
+
+        companyName = StringField('Comp. Name',
+                              validators=[DataRequired(),Length(max=50)])
+
+        numOfBooks = IntegerField('Num of Books',
+                             validators=[DataRequired()])
+
+        submit = SubmitField('submit')
+
+    class editAuthor(FlaskForm):
+        name = StringField('Name',
+                           validators=[DataRequired(),Length(max=30)])
+        surname = StringField('Surname',
+                                validators=[DataRequired()])
+
+        date = DateField('Date',
+                              validators=[DataRequired(),required()])
+
+        country = StringField('Country',
+                              validators=[DataRequired(),Length(max=40)])
+
+        numOfBooks = IntegerField('Num of books',
+                             validators=[DataRequired(),required()])
+
+        submit = SubmitField('submit')
