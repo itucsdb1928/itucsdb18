@@ -246,7 +246,7 @@ Search book function:
 I showed some book attributes on the detail page and in detail page user can add  a comment to the book.
 There is a delete book button that only seen by Admin.
 
-.. code-block::python
+.. code-block:: python
 
     @app.route('/Detail',methods=['GET','POST'])
     def detail_page():
@@ -317,7 +317,7 @@ Read Function in DetailPage and update bookreview:
 
 Delete function in DetailPage:
 
-.. code-block::python
+.. code-block:: python
 
      def delete_book(self, bookid):
         with dbapi2.connect(self.url) as connection:
@@ -331,7 +331,7 @@ Delete function in DetailPage:
 
 Update book content functions:
 
-.. code-block::python
+.. code-block:: python
 
     def updateBookContent(self,bookId,newComment):
         info = None
@@ -371,7 +371,7 @@ update contents of author table and delete author button which deletes all autho
 
 Author Detail Page,Add author page and edit author page:
 
-.. code-block::python
+.. code-block:: python
 
     @app.route('/Author_Profile',methods=['GET','POST'])
     def author_detail_page():
@@ -420,7 +420,7 @@ Author Detail Page,Add author page and edit author page:
 
 Read,create,delete and udate author functions:
 
-.. code-block::python
+.. code-block:: python
 
     def show_author_detail(self,authorName,authorSurname):
 
@@ -457,7 +457,7 @@ Read,create,delete and udate author functions:
 
 I checked the inputs which is filled by users for validation to save our program and database:
 
-.. code-block::python
+.. code-block:: python
 
     class editAuthor(FlaskForm):
         name = StringField('Name',
@@ -507,7 +507,7 @@ which deletes all publisher information include it's references books.
 
 Publisher Detail Page, Add Publisher Page and Edit Publisher Page:
 
-.. code-block::python
+.. code-block:: python
 
     @app.route('/Publisher_Profile',methods=['GET','POST'])
     def publisher_detail_page():
@@ -554,7 +554,7 @@ Publisher Detail Page, Add Publisher Page and Edit Publisher Page:
 
 Read,create,delete and udate publisher functions:
 
-.. code-block::python
+.. code-block:: python
 
      def show_publisher_detail(self,publisherName):
 
@@ -628,7 +628,7 @@ I send  Userid information from server.py to the Html files for show hidden butt
 
 I checked the inputs which is filled by users for validation to save our program and database:
 
-.. code-block::python
+.. code-block:: python
 
     class editPublisher(FlaskForm):
         name = StringField('Name',
