@@ -43,6 +43,45 @@ You can also click the edit user content button and edit your user content infor
       :scale: 50 %
       :alt: map to buried treasure
 
+You can go homepage and then click the see detail button which you want to see information about book.
+
+    .. figure:: pictures_user/U_Homepage.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+After the click button. You can see detail page of that book.
+
+
+   .. figure:: pictures_user/U_detail1.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+
+   .. figure:: pictures_user/U_detail2.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+
+If the login was made by admin, he can change the contents of book.
+
+
+    .. figure:: pictures_user/A_detail.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+You can add a comment to the book and rate this book.
+
+
+    .. figure:: pictures_user/U_rates.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+.. figure:: pictures_user/U_comments.png
+      :scale: 50 %
+      :alt: map to buried treasure
+
+
+
 
 
 
