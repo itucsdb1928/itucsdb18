@@ -540,6 +540,7 @@ For session only users can add, delete and rate the books. The non-registered us
 
 
 I used bootstrap to create a sketch for detail page.
+
 .. code-block::
 
         <!DOCTYPE html>

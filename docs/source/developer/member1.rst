@@ -16,6 +16,7 @@ On this project I used various important python modules to implement the feature
 I used bootstrap to create a sketch of html pages.
 
 .. code-block::
+
         <!DOCTYPE html>
     <html lang="en">
     <head>
