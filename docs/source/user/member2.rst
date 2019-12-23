@@ -83,17 +83,3 @@ You can add a comment to the book,like or dislike the comments and rate the book
       :scale: 50 %
       :alt: map to buried treasure
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-

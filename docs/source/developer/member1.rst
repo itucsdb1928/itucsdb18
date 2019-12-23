@@ -1,6 +1,68 @@
 Parts Implemented by Mehmet Ali Han Tutuk
 =========================================
 
+
+
+On this project I used various important python modules to implement the features and functionality effectively.
+
+.. code-block:: python
+
+    import os
+    import sys
+    import psycopg2 as dbapi2
+    from flask import Flask, redirect, render_template,flash,url_for,current_app,request
+
+
+I used bootstrap to create a sketch of html pages.
+
+.. code-block::
+        <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>{{title}}</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url_for('homepage') }}">WOB</a>
+                </div>
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="{{ url_for('homepage') }}">Home</a></li>
+
+                    {% if Status!=0 %}
+                    <li><a href="{{ url_for('profile_page') }}">Profile </a></li>
+                    <li><a href="{{ url_for('sign_in_page') }}">SignOut </a></li>
+
+                    {% else %}
+                    <li><a href="{{ url_for('sign_in_page') }}">SignIn </a></li>
+                    <li><a href="{{ url_for('sign_up_page') }}">SignUp</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+
+
+
+
+
+        {% block content %}{% endblock %}
+
+
+    </body>
+    </html>
+
+
+
 My Tables in Database
 ---------------------
 Books Table
@@ -31,7 +93,7 @@ I showed some book attributes on the homepage and i added some extra useful tool
 the see detail button.Additionally, i implemented the session such as add a new book, add  new author and add a
 new publisher buttons which are not seen by the user,only admin access these buttons.
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/')
     @app.route('/Home',methods=['GET','POST'])
@@ -58,7 +120,7 @@ new publisher buttons which are not seen by the user,only admin access these but
 
 Read Function in Homepage:
 
-.. code-block::
+.. code-block:: python
 
     def get_home_page(self):
         with dbapi2.connect(self.url) as connection:
@@ -73,7 +135,7 @@ Read Function in Homepage:
 
 Add a new bookpage and backround database code:
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/Add_Book',methods=['GET','POST'])
     def add_book():
@@ -96,7 +158,7 @@ Add a new bookpage and backround database code:
 
 Insert new book to the database:
 
-.. code-block::
+.. code-block:: python
 
     def add_new_book(self,title, postdate, PageNum, content, authorid, publisherid):
         with dbapi2.connect(self.url) as connection:
@@ -109,7 +171,7 @@ Insert new book to the database:
 In this page i provide the admin all publishers and author to protect the website which is added the author or publisher
 that is not available in the database.
 
-.. code-block::
+.. code-block:: python
 
         def all_publishers(self):
 
@@ -166,7 +228,7 @@ In HTML file i used the select and option tag.
 
 Search book function:
 
-.. code-block::
+.. code-block:: python
 
     def Search(self,name):
        with dbapi2.connect(self.url) as connection:
@@ -182,7 +244,8 @@ Search book function:
 
 I showed some book attributes on the detail page and in detail page user can add  a comment to the book.
 There is a delete book button that only seen by Admin.
-.. code-block::
+
+.. code-block::python
 
     @app.route('/Detail',methods=['GET','POST'])
     def detail_page():
@@ -235,7 +298,7 @@ There is a delete book button that only seen by Admin.
 
 Read Function in DetailPage and update bookreview:
 
-.. code-block::
+.. code-block:: python
 
     def get_detail_page(self,book_name):
        with dbapi2.connect(self.url) as connection:
@@ -253,7 +316,7 @@ Read Function in DetailPage and update bookreview:
 
 Delete function in DetailPage:
 
-.. code-block::
+.. code-block::python
 
      def delete_book(self, bookid):
         with dbapi2.connect(self.url) as connection:
@@ -267,7 +330,7 @@ Delete function in DetailPage:
 
 Update book content functions:
 
-.. code-block::
+.. code-block::python
 
     def updateBookContent(self,bookId,newComment):
         info = None
@@ -307,7 +370,7 @@ update contents of author table and delete author button which deletes all autho
 
 Author Detail Page,Add author page and edit author page:
 
-.. code-block::
+.. code-block::python
 
     @app.route('/Author_Profile',methods=['GET','POST'])
     def author_detail_page():
@@ -356,7 +419,7 @@ Author Detail Page,Add author page and edit author page:
 
 Read,create,delete and udate author functions:
 
-.. code-block::
+.. code-block::python
 
     def show_author_detail(self,authorName,authorSurname):
 
@@ -393,7 +456,7 @@ Read,create,delete and udate author functions:
 
 I checked the inputs which is filled by users for validation to save our program and database:
 
-.. code-block::
+.. code-block::python
 
     class editAuthor(FlaskForm):
         name = StringField('Name',
@@ -443,7 +506,7 @@ which deletes all publisher information include it's references books.
 
 Publisher Detail Page, Add Publisher Page and Edit Publisher Page:
 
-.. code-block::
+.. code-block::python
 
     @app.route('/Publisher_Profile',methods=['GET','POST'])
     def publisher_detail_page():
@@ -490,7 +553,7 @@ Publisher Detail Page, Add Publisher Page and Edit Publisher Page:
 
 Read,create,delete and udate publisher functions:
 
-.. code-block::
+.. code-block::python
 
      def show_publisher_detail(self,publisherName):
 
@@ -502,27 +565,27 @@ Read,create,delete and udate publisher functions:
             cursor.close()
             return publisherDetails
 
-    def edit_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName,publisherid):
-         with dbapi2.connect(self.url) as connection:
-           cursor = connection.cursor()
-           query = "UPDATE Publisher SET name='{}',adress='{}',numberofbooks={},establishmentdate='{}',companyname='{}' WHERE PublisherID={};".format(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
-           cursor.execute(query)
-           cursor.close()
+        def edit_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName,publisherid):
+             with dbapi2.connect(self.url) as connection:
+               cursor = connection.cursor()
+               query = "UPDATE Publisher SET name='{}',adress='{}',numberofbooks={},establishmentdate='{}',companyname='{}' WHERE PublisherID={};".format(name,adress,numberOfbooks, establishmentdate, companyName,publisherid)
+               cursor.execute(query)
+               cursor.close()
 
-    def delete_publisher(self,publisherid):
+        def delete_publisher(self,publisherid):
 
-         with dbapi2.connect(self.url) as connection:
-           cursor = connection.cursor()
-           query = "DELETE FROM Publisher WHERE PublisherID={};".format(publisherid)
-           cursor.execute(query)
-           cursor.close()
+             with dbapi2.connect(self.url) as connection:
+               cursor = connection.cursor()
+               query = "DELETE FROM Publisher WHERE PublisherID={};".format(publisherid)
+               cursor.execute(query)
+               cursor.close()
 
-    def add_new_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName):
-        with dbapi2.connect(self.url) as connection:
-            cursor = connection.cursor()
-            query = "INSERT INTO Publisher (name,adress,numberOfbooks ,establishmentDate ,companyName ) VALUES ('{}', '{}', {}, '{}','{}');".format(name,adress,numberOfbooks, establishmentdate, companyName)
-            cursor.execute(query)
-            cursor.close()
+        def add_new_publisher(self,name,adress,numberOfbooks, establishmentdate, companyName):
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "INSERT INTO Publisher (name,adress,numberOfbooks ,establishmentDate ,companyName ) VALUES ('{}', '{}', {}, '{}','{}');".format(name,adress,numberOfbooks, establishmentdate, companyName)
+                cursor.execute(query)
+                cursor.close()
 
 
 I implemented the sessioning in HTML file shown below:
@@ -564,7 +627,7 @@ I send  Userid information from server.py to the Html files for show hidden butt
 
 I checked the inputs which is filled by users for validation to save our program and database:
 
-.. code-block::
+.. code-block::python
 
     class editPublisher(FlaskForm):
         name = StringField('Name',

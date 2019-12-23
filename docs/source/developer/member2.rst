@@ -1,6 +1,19 @@
 Parts Implemented by Muhammed Emin Topuz
 ========================================
 
+
+On this project I used various important python modules to implement the features and functionality effectively.
+
+.. code-block:: python
+
+    import os
+    import sys
+    import psycopg2 as dbapi2
+    from datetime import date
+    from cyripto import Crypto
+    from flask import Flask, redirect, render_template,flash,url_for,current_app,request
+
+
 My Tables in Database
 ---------------------
 
@@ -30,11 +43,11 @@ UserID  name       surname       gender    age    email               password  
 
 I designed the SignUp, SignIn and Profile page for registering new user, entering the website and create a new profile.
 I write a bunch of codes for user interface and provide easily travel in the website for users. I also use Crypto
-module to encryp the passwords for protecting user privacy.
+module to encrypt the passwords for protecting user privacy.
 
 SignUp Page:
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/SignUp',methods=['GET','POST'])
     def sign_up_page():
@@ -49,7 +62,7 @@ SignUp Page:
 
         return render_template('register.html', Status=db.UserId, title="SıgnUp Page", form=form)
 
-I checeked inputs for validation in the HTML files with using Jinja:
+I checked inputs for validation in the HTML files with using Jinja:
 
 .. code-block::
 
@@ -157,7 +170,7 @@ I checeked inputs for validation in the HTML files with using Jinja:
 
 For validation:
 
-.. code-block::
+.. code-block:: python
 
     class RegistrationForm(FlaskForm):
         name = StringField('Name',
@@ -183,7 +196,7 @@ For validation:
 
 I  also added the new user into database if all inputs are available and proper.
 
-.. code-block::
+.. code-block:: python
 
         def insertNewUser(self,form):
             userId = 0
@@ -222,7 +235,7 @@ I  also added the new user into database if all inputs are available and proper.
 
 SignIn page:
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/SignIn',methods=['GET','POST'])
     def sign_in_page():
@@ -239,7 +252,7 @@ SignIn page:
 
 I checked the email and password if both of them are valid, I provided the sign in function for user.
 
-.. code-block::
+.. code-block:: python
 
        def checkLogin(self,email,password):
            UserID = 0
@@ -259,7 +272,7 @@ I checked the email and password if both of them are valid, I provided the sign 
 
 I checked the inputs for validation:
 
-.. code-block::
+.. code-block:: python
 
     class LoginForm(FlaskForm):
         email = StringField('Email',
@@ -268,12 +281,12 @@ I checked the inputs for validation:
         remember = BooleanField('Remember Me')
         submit = SubmitField('Sign In')
 
-I designed the profile page for user to see own profile informations and edit profilebutton
+I designed the profile page for user to see own profile informations and edit profile button
 to edit her/his own information.
 
 Profile Page:
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/Profile',methods=['GET','POST'])
     def profile_page():
@@ -293,9 +306,9 @@ Profile Page:
         return render_template('profile.html', Status=db.UserId, title = "Profile Page", profile=profile,addContent = addNewContent)
 
 
-Show the profile to the user. For doing this, I impelemented the Read Features that Database includes.
+Show the profile to the user. For doing this, I implemented the Read Features that Database includes.
 
-.. code-block::
+.. code-block:: python
 
      def show_profile(self,UserId):
         with dbapi2.connect(self.url) as connection:
@@ -335,7 +348,7 @@ In profile html i checked the userid to recognize the user is admin or not.
 
 Edit Profile Page:
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/EditProfile',methods=['GET','POST'])
     def edit_profile_page():
@@ -358,7 +371,7 @@ Edit Profile Page:
 
 Editing profile by using Update function in postgresql:
 
-.. code-block::
+.. code-block:: python
 
      def edit_profile(self,name,surname, age, gender, Userid):
         with dbapi2.connect(self.url) as connection:
@@ -369,7 +382,7 @@ Editing profile by using Update function in postgresql:
 
 For validation i checked the inputs of user in edit profile page.
 
-.. code-block::
+.. code-block:: python
 
     class editProfile(FlaskForm):
         name = StringField('Name',
@@ -388,7 +401,7 @@ For validation i checked the inputs of user in edit profile page.
 
 Delete profile function.
 
-.. code-block::
+.. code-block:: python
 
      def delete_profile(self, Userid):
         with dbapi2.connect(self.url) as connection:
@@ -434,7 +447,7 @@ of book that never knows or to inform other users about that book.
 
 In Detail page users can read the comments, add a new comment tot the books and rate the books.
 
-.. code-block::
+.. code-block:: python
 
     def getReview(self,bookId):
         info = None
@@ -484,7 +497,7 @@ In Detail page users can read the comments, add a new comment tot the books and 
 
 The users also delete their comments:
 
-.. code-block::
+.. code-block:: python
 
      def delete_comment(self,bookId):
         with dbapi2.connect(self.url) as connection:
@@ -495,7 +508,7 @@ The users also delete their comments:
 
 I added to the comments like and dislike number features to rated the comments by other users.
 
-.. code-block::
+.. code-block:: python
 
      def updateLike(self,userId,type):
          if(type == "like"):
@@ -523,6 +536,56 @@ For session only users can add, delete and rate the books. The non-registered us
             <button class="button is-link" action='submit' name="btn" value="ratingBtn">Share</button>
         </label>
      {% endif %}
+
+
+
+I used bootstrap to create a sketch for detail page.
+.. code-block::
+
+        <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>{{title}}</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/userRate.css') }}">
+
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url_for('homepage') }}">WOB</a>
+                </div>
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="{{ url_for('homepage') }}">Home</a></li>
+
+                    {% if Status!=0 %}
+                    <li><a href="{{ url_for('profile_page') }}">Profile </a></li>
+                    <li><a href="{{ url_for('sign_in_page') }}">SignOut </a></li>
+
+                    {% else %}
+                    <li><a href="{{ url_for('sign_in_page') }}">SignIn </a></li>
+                    <li><a href="{{ url_for('sign_up_page') }}">SignUp</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+
+        {% block content %}{% endblock %}
+
+
+    </body>
+    </html>
 
 
 
@@ -554,7 +617,7 @@ I create the user content table for users to add favorite authors, favorite publ
 books on their own profile page. They can also delete their contents, edit their contents and see their
 comments that how many user liked that comment.
 
-.. code-block::
+.. code-block:: python
 
     @app.route('/AddingUserContent',methods=['GET','POST'])
     def add_user_content():
@@ -589,7 +652,7 @@ comments that how many user liked that comment.
 
 Add,edit and delete functions:
 
-.. code-block::
+.. code-block:: python
 
     def NewContent(self,form):
         with dbapi2.connect(self.url) as connection:
@@ -616,7 +679,7 @@ Add,edit and delete functions:
 
 For validation i checked the contents inputs.
 
-.. code-block::
+.. code-block:: python
 
     class AddUserContent(FlaskForm):
         book = StringField('FavBook',

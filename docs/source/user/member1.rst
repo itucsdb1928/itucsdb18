@@ -43,7 +43,7 @@ Add new Publisher with the proper infomations.
       :scale: 50 %
       :alt: map to buried treasure
 
-Add new Author with the proper infomations.
+Add new Author with the proper informations.
 
     .. figure:: pictures_user/A_add_author.png
       :scale: 50 %
