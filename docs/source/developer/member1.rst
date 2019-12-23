@@ -185,16 +185,16 @@ that is not available in the database.
 
         return publishers
 
-    def all_authors(self):
+        def all_authors(self):
 
-        with dbapi2.connect(self.url) as connection:
-            cursor = connection.cursor()
-            query = "SELECT DISTINCT Author.name,Author.surname,Author.AuthorID FROM Author;"
-            cursor.execute(query)
-            authors = cursor.fetchall()
-            cursor.close()
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                query = "SELECT DISTINCT Author.name,Author.surname,Author.AuthorID FROM Author;"
+                cursor.execute(query)
+                authors = cursor.fetchall()
+                cursor.close()
 
-        return authors
+            return authors
 
 In HTML file i used the select and option tag.
 
