@@ -69,7 +69,7 @@ If the login was made by admin, he can change the contents of book.
       :scale: 50 %
       :alt: map to buried treasure
 
-You can add a comment to the book and rate this book.
+You can add a comment to the book,like or dislike the comments and rate the book.
 
 
     .. figure:: pictures_user/U_rates.png
