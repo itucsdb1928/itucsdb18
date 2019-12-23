@@ -1,7 +1,7 @@
 Parts Implemented by Mehmet Ali Han Tutuk
 =========================================
 
-The first time you enter the site you will see this page.
+The first time you enter the site you will see home page. You can see all books  ans some details of books in this page.
 
      .. figure:: pictures_user/U_Homepage.png
       :scale: 50 %
@@ -30,20 +30,20 @@ and add publishers.
       :scale: 50 %
       :alt: map to buried treasure
 
-Add new book
+Add new book with the proper infomations.
 
     .. figure:: pictures_user/A_add_book.png
       :scale: 50 %
       :alt: map to buried treasure
 
 
-Add new Publisher
+Add new Publisher with the proper infomations.
 
     .. figure:: pictures_user/A_add_publisher.png
       :scale: 50 %
       :alt: map to buried treasure
 
-Add new Author
+Add new Author with the proper infomations.
 
     .. figure:: pictures_user/A_add_author.png
       :scale: 50 %
@@ -65,7 +65,7 @@ After the search:
       :alt: map to buried treasure
 
 
-You can go to the detail page of the books for more detailed information.
+You can go to the detail page of the books for more detailed information such as publisher,author,comments and rates.
 
 Detail Page:
 
@@ -131,7 +131,7 @@ If the login is done by admin, admin can edit and delete corresponding the autho
       :scale: 50 %
       :alt: map to buried treasure
 
-Editing Publisher by admin
+Editing author by admin
 
     .. figure:: pictures_user/A_edit_author.png
       :scale: 50 %
