@@ -20,7 +20,7 @@ My Tables in Database
 Users Table
 -----------
 
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS Users(
                       UserID SERIAL PRIMARY KEY,
@@ -64,7 +64,7 @@ SignUp Page:
 
 I checked inputs for validation in the HTML files with using Jinja:
 
-.. code-block::
+.. code-block:: HTML
 
     <div class="content-section">
     <form method="POST" action="">
@@ -329,7 +329,7 @@ Show the profile to the user. For doing this, I implemented the Read Features th
 For sessioning, every user can delete their own profile and deleted from database on their own except the admin.
 In profile html i checked the userid to recognize the user is admin or not.
 
-.. code-block::
+.. code-block:: HTML
 
     {% if Status != 1 %}
     <div class="form-group">
@@ -419,7 +419,7 @@ Delete profile function.
 BookComment Table
 -----------------
 
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS BookComment(
                       BookCommentID SERIAL PRIMARY KEY ,
@@ -529,7 +529,7 @@ I added to the comments like and dislike number features to rated the comments b
 
 For session only users can add, delete and rate the books. The non-registered users can only see the comments.
 
-.. code-block::
+.. code-block:: HTML
 
      {% if Status > 0 %}
         <label class="radio-inline" name="btn" value="ratingBtn">
@@ -541,7 +541,7 @@ For session only users can add, delete and rate the books. The non-registered us
 
 I used bootstrap to create a sketch for detail page.
 
-.. code-block::
+.. code-block:: HTML
 
         <!DOCTYPE html>
     <html lang="en">
@@ -593,7 +593,7 @@ I used bootstrap to create a sketch for detail page.
 UserContent Table
 -----------------
 
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS UserContent(
                       UserContentID SERIAL PRIMARY KEY ,

@@ -15,7 +15,7 @@ On this project I used various important python modules to implement the feature
 
 I used bootstrap to create a sketch of html pages.
 
-.. code-block::
+.. code-block:: HTML
 
         <!DOCTYPE html>
     <html lang="en">
@@ -68,7 +68,7 @@ My Tables in Database
 ---------------------
 Books Table
 -----------
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS Books(
                       BookID SERIAL PRIMARY KEY ,
@@ -198,7 +198,7 @@ that is not available in the database.
 
 In HTML file i used the select and option tag.
 
-.. code-block::
+.. code-block:: HTML
 
                <select id="user_time_zone" name="Authorid"class="form-control">
     {% for i in author %}
@@ -345,7 +345,7 @@ Update book content functions:
 Author Table
 ------------
 
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS Author(
                       AuthorID SERIAL PRIMARY KEY ,
@@ -480,7 +480,7 @@ I checked the inputs which is filled by users for validation to save our program
 Publisher Table
 ---------------
 
-.. code-block::
+.. code-block:: SQL
 
     CREATE TABLE IF NOT EXISTS Publisher(
                       PublisherID SERIAL PRIMARY KEY ,
@@ -593,7 +593,7 @@ I implemented the sessioning in HTML file shown below:
 
 I send  Userid information from server.py to the Html files for show hidden buttons which is seen by only admin.
 
-.. code-block::
+.. code-block:: HTML
 
     {% if user == 1 %}
 

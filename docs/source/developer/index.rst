@@ -1,5 +1,5 @@
-Welcome to itucsdb28's  documentation!
-======================================
+Developer Guide
+===============
 
 WOB's Database Design
 ---------------------
