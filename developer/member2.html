@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parts Implemented by Muhammed Emin Topuz &mdash; ITUCSDB1928  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Parts Implemented by Mehmet Ali Han Tutuk" href="member1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1928
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#wob-s-database-design">WOB’s Database Design</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="member1.html">Parts Implemented by Mehmet Ali Han Tutuk</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Parts Implemented by Muhammed Emin Topuz</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#my-tables-in-database">My Tables in Database</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#users-table">Users Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bookcomment-table">BookComment Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usercontent-table">UserContent Table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1928</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Parts Implemented by Muhammed Emin Topuz</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/member2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parts-implemented-by-muhammed-emin-topuz">
+<h1>Parts Implemented by Muhammed Emin Topuz<a class="headerlink" href="#parts-implemented-by-muhammed-emin-topuz" title="Permalink to this headline">¶</a></h1>
+<p>On this project I used various important python modules to implement the features and functionality effectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">psycopg2</span> <span class="k">as</span> <span class="nn">dbapi2</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">cyripto</span> <span class="kn">import</span> <span class="n">Crypto</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span><span class="n">flash</span><span class="p">,</span><span class="n">url_for</span><span class="p">,</span><span class="n">current_app</span><span class="p">,</span><span class="n">request</span>
+</pre></div>
+</div>
+<div class="section" id="my-tables-in-database">
+<h2>My Tables in Database<a class="headerlink" href="#my-tables-in-database" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="users-table">
+<h2>Users Table<a class="headerlink" href="#users-table" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">Users</span><span class="p">(</span>
+                  <span class="n">UserID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                  <span class="n">name</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">surname</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">gender</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">age</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">email</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">password</span> <span class="nb">VARCHAR</span> <span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">isAdmin</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span>
+                 <span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+<col style="width: 20%" />
+<col style="width: 26%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>UserID</p></th>
+<th class="head"><p>name</p></th>
+<th class="head"><p>surname</p></th>
+<th class="head"><p>gender</p></th>
+<th class="head"><p>age</p></th>
+<th class="head"><p>email</p></th>
+<th class="head"><p>password</p></th>
+<th class="head"><p>isAdmin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>admin</p></td>
+<td><p>admin</p></td>
+<td><p>None</p></td>
+<td><p>0</p></td>
+<td><p><a class="reference external" href="mailto:admin&#37;&#52;&#48;gmail&#46;com">admin<span>&#64;</span>gmail<span>&#46;</span>com</a></p></td>
+<td><p>AAAAABd9BaEELg95qbxr7</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Micheal</p></td>
+<td><p>Holmes</p></td>
+<td><p>Male</p></td>
+<td><p>34</p></td>
+<td><p><a class="reference external" href="mailto:micholmes1&#37;&#52;&#48;xyz&#46;com">micholmes1<span>&#64;</span>xyz<span>&#46;</span>com</a></p></td>
+<td><p>ggGShsghs53sggsfsgsgs</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>I designed the SignUp, SignIn and Profile page for registering new user, entering the website and create a new profile.
+I write a bunch of codes for user interface and provide easily travel in the website for users. I also use Crypto
+module to encrypt the passwords for protecting user privacy.</p>
+<p>SignUp Page:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/SignUp&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">sign_up_page</span><span class="p">():</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">RegistrationForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;submited&quot;</span><span class="p">)</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">crp</span><span class="o">.</span><span class="n">password2secret</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">UserId</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">insertNewUser</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">UserId</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;Başarılı bir şekilde giriş yaptınız!&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;register.html&#39;</span><span class="p">,</span> <span class="n">Status</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SıgnUp Page&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I checked inputs for validation in the HTML files with using Jinja:</p>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;content-section&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+    {{ form.hidden_tag() }}
+    <span class="p">&lt;</span><span class="nt">fieldset</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">legend</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;border-bottom mb-4&quot;</span><span class="p">&gt;</span>Joy In<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.name.label(class=&quot;form-control-label&quot;) }}
+            {% if form.name.errors %}
+            {{ form.name(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.name.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.name(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.surname.label(class=&quot;form-control-label&quot;) }}
+            {% if form.surname.errors %}
+            {{ form.surname(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.surname.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.surname(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.age.label(class=&quot;form-control-label&quot;) }}
+            {% if form.age.errors %}
+            {{ form.age(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.age.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.age(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.gender.label(class=&quot;form-control-label&quot;) }}
+            {{ form.gender(class=&quot;form-control form-control-lg&quot;) }}
+
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.email.label(class=&quot;form-control-label&quot;) }}
+            {% if form.email.errors %}
+            {{ form.email(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.email.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.email(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.password.label(class=&quot;form-control-label&quot;) }}
+            {% if form.password.errors %}
+            {{ form.password(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.password.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.password(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.confirm_password.label(class=&quot;form-control-label&quot;) }}
+            {% if form.confirm_password.errors %}
+            {{ form.confirm_password(class=&quot;form-control form-control-lg is-invalid&quot;) }}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                {% for error in form.confirm_password.errors %}
+                <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            {% else %}
+            {{ form.confirm_password(class=&quot;form-control form-control-lg&quot;) }}
+            {% endif %}
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        {{ form.submit(class=&quot;btn btn-outline-info&quot;) }}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;border-top pt-3&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">small</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text-muted&quot;</span><span class="p">&gt;</span>
+        Already Have an Account? <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ml-2&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;sign_up_page&#39;) }}&quot;</span><span class="p">&gt;</span>Sign in Now<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>For validation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RegistrationForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)])</span>
+    <span class="n">surname</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Surname&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)])</span>
+
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span><span class="s1">&#39;Male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span><span class="s1">&#39;Female&#39;</span><span class="p">)],</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+
+    <span class="n">age</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">required</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">3</span><span class="p">)])</span>
+
+    <span class="n">email</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Email&#39;</span><span class="p">,</span>
+                        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Email</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)])</span>
+
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="nb">max</span><span class="o">=</span><span class="mi">9</span><span class="p">)])</span>
+
+    <span class="n">confirm_password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Confirm Password&#39;</span><span class="p">,</span>
+                                     <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">EqualTo</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)])</span>
+
+
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Sign Up&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I  also added the new user into database if all inputs are available and proper.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">insertNewUser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">form</span><span class="p">):</span>
+    <span class="n">userId</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;select email from users where email = &#39;</span><span class="si">%s</span><span class="s2">&#39;;&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">info</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO Users (name,surname,gender,age,email,password,isAdmin) VALUES (&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;, &#39;</span><span class="si">%s</span><span class="s2">&#39;,0);&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">surname</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT UserID  FROM Users WHERE email=&#39;</span><span class="si">%s</span><span class="s2">&#39;;&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">userId</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+
+        <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO UserContent (userid,FavAuthor,FavBook,FavPublisher) VALUES (&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;);&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">userId</span>
+</pre></div>
+</div>
+<p>SignIn page:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/SignIn&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">sign_in_page</span><span class="p">():</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="o">=</span> <span class="mi">0</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">LoginForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">UserId</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">checkLogin</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">UserId</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;Başarılı bir şekilde giriş yaptınız!&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login.html&#39;</span><span class="p">,</span><span class="n">Status</span> <span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;SıgnIn Page&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I checked the email and password if both of them are valid, I provided the sign in function for user.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">checkLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">email</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">UserID</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT UserID,password FROM Users WHERE email=&#39;</span><span class="si">%s</span><span class="s2">&#39;;&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">password</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">crt</span><span class="o">.</span><span class="n">secret2password</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+            <span class="n">UserID</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">UserID</span>
+</pre></div>
+</div>
+<p>I checked the inputs for validation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LoginForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Email&#39;</span><span class="p">,</span>
+                        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">remember</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">(</span><span class="s1">&#39;Remember Me&#39;</span><span class="p">)</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Sign In&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I designed the profile page for user to see own profile informations and edit profile button
+to edit her/his own information.</p>
+<p>Profile Page:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/Profile&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">profile_page</span><span class="p">():</span>
+    <span class="n">addNewContent</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">profile</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">show_profile</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">addNewContent</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------new cont:&quot;</span><span class="p">,</span><span class="n">addNewContent</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;edit_profile&quot;</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;edit_profile_page&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;edit_userContent&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;edit_user_content&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;add_content&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;add_user_content&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;profile.html&#39;</span><span class="p">,</span> <span class="n">Status</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Profile Page&quot;</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span><span class="n">addContent</span> <span class="o">=</span> <span class="n">addNewContent</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Show the profile to the user. For doing this, I implemented the Read Features that Database includes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">UserId</span><span class="p">):</span>
+   <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+      <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT users.name,users.surname,users.gender,users.age,users.email,usercontent.commentsnum,usercontent.favauthor,usercontent.favbook,usercontent.favpublisher,usercontent.likedcommentnum FROM Users,usercontent WHERE Users.UserID=usercontent.userid and Users.UserID=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">UserId</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+      <span class="n">profile</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">profile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+       <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+           <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+           <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT users.name,users.surname,users.gender,users.age,users.email FROM Users WHERE UserID=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">UserId</span><span class="p">)</span>
+           <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+           <span class="n">profile</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+           <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+   <span class="k">return</span> <span class="n">profile</span>
+</pre></div>
+</div>
+<p>For sessioning, every user can delete their own profile and deleted from database on their own except the admin.
+In profile html i checked the userid to recognize the user is admin or not.</p>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% if Status != 1 %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span>  <span class="na">action</span><span class="o">=</span><span class="s">&quot;/Profile&quot;</span><span class="p">&gt;</span>
+
+
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;edit_profile&quot;</span> <span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button is-danger&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;edit_profile&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;edit_profile&quot;</span><span class="p">&gt;</span>Edit Profile<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+</div>
+<p>Edit Profile Page:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/EditProfile&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">edit_profile_page</span><span class="p">():</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">show_profile</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">editProfile</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">edit_profile</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">surname</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;cancel&quot;</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">delete_profile</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">UserId</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;sign_up_page&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;edit_profile.html&#39;</span><span class="p">,</span> <span class="n">Status</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Edit Profile Page&quot;</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Editing profile by using Update function in postgresql:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">edit_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">surname</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">Userid</span><span class="p">):</span>
+   <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+      <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE Users SET name=&#39;</span><span class="si">{}</span><span class="s2">&#39;,surname=&#39;</span><span class="si">{}</span><span class="s2">&#39;,age=</span><span class="si">{}</span><span class="s2">,gender=&#39;</span><span class="si">{}</span><span class="s2">&#39; WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">Userid</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For validation i checked the inputs of user in edit profile page.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">editProfile</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)])</span>
+    <span class="n">surname</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Surname&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)])</span>
+
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span><span class="s1">&#39;Male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span><span class="s1">&#39;Female&#39;</span><span class="p">)],</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+
+    <span class="n">age</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span><span class="n">required</span><span class="p">(),</span><span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">3</span><span class="p">)])</span>
+
+
+
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Delete profile function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delete_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Userid</span><span class="p">):</span>
+   <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+      <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM BookComment WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Userid</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM UserContent WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Userid</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM Users WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Userid</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+      <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bookcomment-table">
+<h2>BookComment Table<a class="headerlink" href="#bookcomment-table" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">BookComment</span><span class="p">(</span>
+                  <span class="n">BookCommentID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">,</span>
+                  <span class="n">UserRating</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">UserComment</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">CommentDate</span> <span class="nb">DATE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">DislikeNum</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">LikeNum</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span> <span class="k">NOT</span> <span class="k">NULL</span>
+                 <span class="p">);</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">BookComment</span> <span class="k">ADD</span> <span class="k">COLUMN</span> <span class="n">UserID</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">Users</span> <span class="p">(</span><span class="n">UserID</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">BookComment</span> <span class="k">ADD</span> <span class="k">COLUMN</span> <span class="n">BookID</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">Books</span> <span class="p">(</span><span class="n">BookID</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">BookComment</span> <span class="k">ALTER</span> <span class="k">COLUMN</span> <span class="n">DislikeNum</span> <span class="k">SET</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">BookComment</span> <span class="k">ALTER</span> <span class="k">COLUMN</span> <span class="n">DislikeNum</span> <span class="k">SET</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 12%" />
+<col style="width: 26%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>BookCommentID</p></th>
+<th class="head"><p>UserRating</p></th>
+<th class="head"><p>UserComment</p></th>
+<th class="head"><p>CommentDate</p></th>
+<th class="head"><p>DislikeNum</p></th>
+<th class="head"><p>LikeNum</p></th>
+<th class="head"><p>UserID</p></th>
+<th class="head"><p>BookID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>5</p></td>
+<td><p>Very good book!</p></td>
+<td><p>08/25/2018</p></td>
+<td><p>4</p></td>
+<td><p>128</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>Almost perfect!</p></td>
+<td><p>09/11/2017</p></td>
+<td><p>14</p></td>
+<td><p>85</p></td>
+<td><p>6</p></td>
+<td><p>14</p></td>
+</tr>
+</tbody>
+</table>
+<p>I create the comment table for books to Users see the book’s votes and comments and they have an idea
+of book that never knows or to inform other users about that book.</p>
+<p>In Detail page users can read the comments, add a new comment tot the books and rate the books.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getReview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bookId</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">avg</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="mi">4</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]}</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT BookComment.userrating,BookComment.usercomment,users.name,BookComment.commentdate,BookComment.LikeNum,BookComment.DislikeNum,users.UserId from BookComment,users WHERE BookComment.userid = users.userid and  bookid =  </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">bookId</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">info</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1">#print(&quot;date ex: %s&quot;%(d))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+      <span class="nb">sum</span> <span class="o">+=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">rates</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">voteNum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">voteNum</span><span class="p">):</span>
+            <span class="n">rates</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">rates</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">voteNum</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rates</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">voteNum</span><span class="p">:</span> <span class="n">avg</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span> <span class="o">/</span> <span class="n">voteNum</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">avg</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">avg</span><span class="p">),</span><span class="n">voteNum</span><span class="p">,</span><span class="n">rates</span><span class="p">,</span><span class="n">info</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">insertRate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userId</span><span class="p">,</span><span class="n">bookId</span><span class="p">,</span><span class="n">form</span><span class="p">,</span><span class="n">today</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE UserContent SET CommentsNum = CommentsNum+1 WHERE UserID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO BookComment (UserID,BookID,UserRating,UserComment,commentdate) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2"> ,</span><span class="si">%s</span><span class="s2">,&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;);&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">,</span><span class="n">bookId</span><span class="p">,</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;optradio&#39;</span><span class="p">],</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;comment&#39;</span><span class="p">],</span><span class="n">today</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+       <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>The users also delete their comments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delete_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bookId</span><span class="p">):</span>
+   <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM bookcomment WHERE userid=</span><span class="si">{}</span><span class="s2"> and bookid=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span><span class="n">bookId</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>I added to the comments like and dislike number features to rated the comments by other users.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">updateLike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userId</span><span class="p">,</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;like&quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+           <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+           <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE UserContent SET LikedCommentNum = LikedCommentNum+1 WHERE UserID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span>
+           <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+           <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="k">if</span><span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;like&quot;</span><span class="p">):</span>
+           <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE BookComment SET LikeNum = LikeNum+1 WHERE UserID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span>
+       <span class="k">else</span><span class="p">:</span>
+           <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE BookComment SET DislikeNum = DislikeNum+1 WHERE UserID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For session only users can add, delete and rate the books. The non-registered users can only see the comments.</p>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% if Status &gt; 0 %}
+   <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;radio-inline&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;ratingBtn&quot;</span><span class="p">&gt;</span>
+       <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button is-link&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#39;submit&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;ratingBtn&quot;</span><span class="p">&gt;</span>Share<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+</div>
+<p>I used bootstrap to create a sketch for detail page.</p>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>    <span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{{title}}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;static&#39;, filename=&#39;css/userRate.css&#39;) }}&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-default&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-header&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;homepage&#39;) }}&quot;</span><span class="p">&gt;</span>WOB<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="p">&gt;</span>
+
+                <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;homepage&#39;) }}&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+
+                {% if Status!=0 %}
+                <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;profile_page&#39;) }}&quot;</span><span class="p">&gt;</span>Profile <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;sign_in_page&#39;) }}&quot;</span><span class="p">&gt;</span>SignOut <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+
+                {% else %}
+                <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;sign_in_page&#39;) }}&quot;</span><span class="p">&gt;</span>SignIn <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;sign_up_page&#39;) }}&quot;</span><span class="p">&gt;</span>SignUp<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                {% endif %}
+
+            <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+
+    {% block content %}{% endblock %}
+
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usercontent-table">
+<h2>UserContent Table<a class="headerlink" href="#usercontent-table" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">UserContent</span><span class="p">(</span>
+                  <span class="n">UserContentID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">,</span>
+                  <span class="n">UserID</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">Users</span> <span class="p">(</span><span class="n">UserID</span><span class="p">)</span><span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">,</span>
+                  <span class="n">CommentsNum</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">FavAuthor</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">FavBook</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">FavPublisher</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+                  <span class="n">LikedCommentNum</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span> <span class="k">NOT</span> <span class="k">NULL</span>
+                 <span class="p">);</span>
+ <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">UserContent</span> <span class="k">ALTER</span> <span class="k">COLUMN</span> <span class="n">CommentsNum</span> <span class="k">SET</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">UserContent</span> <span class="k">ALTER</span> <span class="k">COLUMN</span> <span class="n">CommentsNum</span> <span class="k">SET</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>UserContentID</p></th>
+<th class="head"><p>UserID</p></th>
+<th class="head"><p>CommentsNum</p></th>
+<th class="head"><p>FavAuthor</p></th>
+<th class="head"><p>FavBook</p></th>
+<th class="head"><p>FavPublisher</p></th>
+<th class="head"><p>LikedCommentNum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>5</p></td>
+<td><p>14</p></td>
+<td><p>ALex Nash</p></td>
+<td><p>Limitless</p></td>
+<td><p>Betha</p></td>
+<td><p>74</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>124</p></td>
+<td><p>25</p></td>
+<td><p>Tara Bagvell</p></td>
+<td><p>The End</p></td>
+<td><p>Triplex</p></td>
+<td><p>24</p></td>
+</tr>
+</tbody>
+</table>
+<p>I create the user content table for users to add favorite authors, favorite publisher and favorite
+books on their own profile page. They can also delete their contents, edit their contents and see their
+comments that how many user liked that comment.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/AddingUserContent&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">add_user_content</span><span class="p">():</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">AddUserContent</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">NewContent</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;cancel&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;add_content.html&#39;</span><span class="p">,</span> <span class="n">Status</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Add Content&quot;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/EditUserContent&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">edit_user_content</span><span class="p">():</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">show_profile</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">AddUserContent</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;buradayımmmmm------------------------&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Edit part----&gt;&quot;</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">edit_user_content</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">delete_user_content</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;btn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;cancel&quot;</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------&gt;print:&quot;</span><span class="p">,</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;profile_page&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;edit_user_content.html&#39;</span><span class="p">,</span> <span class="n">Status</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">UserId</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Edit Profile Page&quot;</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add,edit and delete functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">NewContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">form</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO UserContent (FavAuthor,FavBook,FavPublisher,UserID) VALUES (&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;</span><span class="si">%s</span><span class="s2">&#39;,</span><span class="si">%d</span><span class="s2">);&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">book</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">edit_user_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">form</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE USERCONTENT SET favauthor=&#39;</span><span class="si">{}</span><span class="s2">&#39;,favbook=&#39;</span><span class="si">{}</span><span class="s2">&#39;,favpublisher=&#39;</span><span class="si">{}</span><span class="s2">&#39;WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">book</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">form</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">delete_user_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+       <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM UserContent WHERE UserID=</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UserId</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For validation i checked the contents inputs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AddUserContent</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;FavBook&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">publisher</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;FavPublisher&#39;</span><span class="p">,</span>
+                       <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+
+    <span class="n">author</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Favauthor&#39;</span><span class="p">,</span>
+                        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="member1.html" class="btn btn-neutral float-left" title="Parts Implemented by Mehmet Ali Han Tutuk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ITUCSDB1928
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
